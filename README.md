@@ -12,14 +12,12 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 ## Status
 
 -	Kernel: 3.18.66
--	glibc: 2.28
+-	glibc: 2.35
 -	arch: armhf
--	yocto: thud (2.6)
+-	yocto: kirkstone (4.0)
 
 ## Notes
 
--	It would be nice to get to version 3.1 (dunfell) as that is still being supported, but a LOT would need to be modified in order for that to work.
--	I have attempted the msm-4.9 kernel, but haven't been able to get it to boot at all. The code is still included at ./kernel/msm-4.9.
 -	All of the meta-qti-* stuff is open-source, but there is no publicly available documentation for which branches go with which yocto version.
 	-	The branches I have chosen are in ./BRANCHES.txt
 -	WLAN is implemented and will connect on bootup. /data/misc/wifi/wpa_supplicant.conf must be modified to include your WiFi credentials (install.sh does automatically).
@@ -27,40 +25,12 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 
 ## Build
 
-### From scratch
-
-Make sure you have Docker installed.
+Make sure you have Docker installed, and configured so a regular user can use it.
 
 ```
-git clone https://github.com/kercre123/vic-yocto
-cd vic-yocto/poky
-./docker.sh
-chmod 0777 .
-chown -R builduser ./*
-su builduser
-cd opensource/poky
-source build/conf/set_bb_env.sh
-build-victor-robot-image
-```
-
-### Update then build
-
-If you have built this before and want to build new code:
-
-```
-cd vic-yocto/poky
-./docker.sh
-chmod 0777 .
-chown -R builduser ./*
-su builduser
-cd opensource
-git pull
-cd poky
-rm -rf build/tmp-glibc
-rm -rf build/cache
-rm -rf build/sstate-cache
-source build/conf/set_bb_env.sh
-build-victor-robot-image
+git clone https://github.com/kercre123/vic-yocto-2
+cd vic-yocto-2
+./build/build.sh
 ```
 
 Result will be in poky/build/tmp-glibc/deploy/images/
@@ -69,8 +39,10 @@ Result will be in poky/build/tmp-glibc/deploy/images/
 
 An install script is included. This patches the image to include the kernel modules corresponding to the boot partition of the current slot in your bot, and adds WiFi credentials for automatic connection.
 
+It is recommended to have WireOS installed.
+
 ```
-# if you are in the docker container, run `exit` twice to get back to the host shell
+# should not be run in a docker container
 cd ../install-image
 # replace vectorip with vector's ip address, /path/to/sshkey with the path to his ssh key, ssid with your network name, password with your network password
 sudo ./install.sh vectorip /path/to/sshkey "ssid" "password"
