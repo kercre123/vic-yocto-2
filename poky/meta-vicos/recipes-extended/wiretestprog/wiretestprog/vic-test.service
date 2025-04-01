@@ -1,0 +1,12 @@
+[Unit]
+Description=Vector test program
+After=mm-anki-camera.service
+Requires=mm-anki-camera.service
+
+[Service]
+Type=Simple
+ExecStartPre=/bin/sleep 3
+ExecStart=/bin/vic-test
+
+[Install]
+WantedBy=multi-user.target
