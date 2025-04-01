@@ -10,6 +10,11 @@ if [[ $1 == *"h"* ]]; then
     exit 0
 fi
 
+if [ "$EUID" -ne 0 ]; then 
+  echo "run as root"
+  exit 1
+fi
+
 if [[ "$1" == "" ]]; then
     echo "You must provide an IP."
     exit 1
@@ -40,7 +45,7 @@ if [[ $(cat /tmp/conntest) == *"no mutual"* ]]; then
     ssh -i $2 root@$1 "uname -a" > /tmp/conntest 2>> /tmp/conntest
 fi
 
-if [[ $(cat /tmp/conntest) == *"Vector"* || $(cat /tmp/conntest) == *"Cozmo"* ]]; then
+if [[ $(cat /tmp/conntest) == *"3.18.66"* || $(cat /tmp/conntest) == *"Cozmo"* ]]; then
     echo "Vector robot target verified"
 else
     echo "Target IP does not point to a Vector or your SSH key is invalid."
@@ -78,11 +83,19 @@ mount $IMAGEPATH edits
 
 echo "Placing wpa_supplicant entry for WiFi connectivity"
 echo "" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "network={" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "  scan_ssid=1" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "  ssid=\"$3\"" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "  psk=\"$4\"" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "}" >> edits/data/misc/wifi/wpa_supplicant.conf
+if [[ $4 == "no_psk" ]]; then
+	echo "network={" >> edits/data/misc/wifi/wpa_supplicant.conf
+	echo "  scan_ssid=1" >> edits/data/misc/wifi/wpa_supplicant.conf
+	echo "  ssid=\"$3\"" >> edits/data/misc/wifi/wpa_supplicant.conf
+	echo "  key_mgmt=NONE" >> edits/data/misc/wifi/wpa_supplicant.conf
+	echo "}" >> edits/data/misc/wifi/wpa_supplicant.conf
+else
+        echo "network={" >> edits/data/misc/wifi/wpa_supplicant.conf
+        echo "  scan_ssid=1" >> edits/data/misc/wifi/wpa_supplicant.conf
+        echo "  ssid=\"$3\"" >> edits/data/misc/wifi/wpa_supplicant.conf
+        echo "  psk=\"$4\"" >> edits/data/misc/wifi/wpa_supplicant.conf
+        echo "}" >> edits/data/misc/wifi/wpa_supplicant.conf
+fi
 
 cat edits/data/misc/wifi/wpa_supplicant.conf
 
@@ -93,8 +106,8 @@ fi
 DDBOOTCOMMAND="dd if=/dev/block/bootdevice/by-name/boot_${ORIGSLOT} of=/dev/block/bootdevice/by-name/boot_${TARGETSLOT}"
 echo $DDBOOTCOMMAND
 
-echo "Stopping anki-robot.target (makes this faster)"
-ssh -i $2 root@$1 "systemctl stop anki-robot.target"
+#echo "Stopping anki-robot.target (makes this faster)"
+#ssh -i $2 root@$1 "systemctl stop anki-robot.target"
 
 echo "Flashing boot partition"
 ssh -i $2 root@$1 ${DDBOOTCOMMAND}
