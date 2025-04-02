@@ -71,7 +71,7 @@ python3 $scriptdir/get_bblayers.py ${WS}/poky \"meta*\" > $scriptdir/bblayers.co
 function setenv-8009-robot-image() {
   unset_bb_env
   export MACHINE=apq8009-robot
-  export PRODUCT=robot
+  #export PRODUCT=robot
   export VARIANT=debug
 }
 
@@ -85,7 +85,7 @@ function build-8009-robot-facdev-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-perf
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   export FACTORY="1"
   cdbitbake machine-robot-image
 }
@@ -95,7 +95,7 @@ function build-8009-robot-perf-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-perf
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   cdbitbake machine-robot-image
 }
 
@@ -104,7 +104,7 @@ function build-8009-robot-user-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-user
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   cdbitbake machine-robot-image
 }
 
@@ -113,7 +113,7 @@ function build-8009-robot-userdev-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-user
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   export DEV="1"
   cdbitbake machine-robot-image
 }
@@ -123,7 +123,7 @@ function build-8009-robot-beta-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-user
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   export DEV="1"
   export BETA="1"
   cdbitbake machine-robot-image
@@ -134,7 +134,7 @@ function build-8009-robot-factory-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-user
   export VARIANT=perf
-  export PRODUCT=robot
+  #export PRODUCT=robot
   export FACTORY="1"
   cdbitbake machine-robot-image
 }

@@ -26,7 +26,7 @@ FILES:${PN} += "/usr/include/*"
 FILES:${PN} += "/usr/lib/*"
 FILES:${PN} += "/usr/lib64/*"
 FILES:${PN}-dev += "${libdir}/cmake/*"
-FILES:${PN}:append_class-native += "${libdir}/cmake/*"
+FILES:${PN}:append_class-native = "${libdir}/cmake/*"
 
 SOLIBS = ".so"
 FILES:SOLIBSDEV = ""

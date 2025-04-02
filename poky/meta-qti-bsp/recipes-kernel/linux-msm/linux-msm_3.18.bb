@@ -10,7 +10,23 @@ SRC_DIR   =  "${WORKSPACE}/kernel/msm-3.18"
 S         =  "${WORKDIR}/kernel/msm-3.18"
 PR = "r5"
 
+SRC_URI += "file://defconfig"
+
 DEPENDS:apq8096 += "dtc-native"
+
+#FILES:kernel-dev += "/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}"
+
+KERNEL_CC = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabihf-gcc"
+KERNEL_LD = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabihf-ld"
+
+do_configure () {
+    oe_runmake_call CC="${KERNEL_CC}" LD="${KERNEL_LD}" -C ${S} ARCH=${ARCH} ${KERNEL_EXTRA_ARGS} ${KERNEL_CONFIG}
+}
+
+do_compile () {
+    unset LDFLAGS
+    oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" ${KERNEL_EXTRA_ARGS} $use_alternate_initrd
+}
 
 do_shared_workdir:append () {
         cp Makefile $kerneldir/
@@ -52,12 +68,19 @@ do_shared_workdir:append () {
         cp ${STAGING_KERNEL_DIR}/scripts/gen_initramfs_list.sh $kerneldir/scripts/
 
         # Copy vmlinux and zImage into deplydir for boot.img creation
-        install -m 0644 ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}
+        install -m 0644 ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin
         install -m 0644 vmlinux ${DEPLOY_DIR_IMAGE}
 
         # Generate kernel headers
         oe_runmake_call -C ${STAGING_KERNEL_DIR} ARCH=${ARCH} CC="${KERNEL_CC}" LD="${KERNEL_LD}" headers_install O=${STAGING_KERNEL_BUILDDIR}
 }
 
+do_install:append() {
+    find ${DEPLOY_DIR_IMAGE} -type d -name '.debug' -exec rm -rf {} +
+}
+
 do_shared_workdir[dirs] = "${DEPLOY_DIR_IMAGE}"
 KERNEL_VERSION_SANITY_SKIP="1"
+INSANE_SKIP:${PN} += " installed-vs-shipped"
+INSANE_SKIP:${PN} += " debug-files"
+do_package_qa[noexec] = "1"

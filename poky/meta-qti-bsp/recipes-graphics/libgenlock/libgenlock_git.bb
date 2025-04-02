@@ -12,7 +12,7 @@ S = "${WORKDIR}/graphics/libgenlock"
 
 DEPENDS += "virtual/kernel"
 
-EXTRA_OECONF:append += " --with-kernel-headers=${STAGING_KERNEL_DIR}/usr/include"
+EXTRA_OECONF:append = " --with-kernel-headers=${STAGING_KERNEL_DIR}/usr/include"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 

@@ -14,7 +14,7 @@ DEPENDS = "virtual/kernel"
 FILESPATH =+ "${WORKSPACE}:"
 SRC_URI = "file://vendor/qcom/opensource/audio-kernel/"
 SRC_URI += "file://${BASEMACHINE}/"
-SRC_URI:append_sa515m += "file://${MACHINE}/"
+SRC_URI:append_sa515m = "file://${MACHINE}/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/audio-kernel"
 

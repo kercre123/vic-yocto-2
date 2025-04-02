@@ -25,7 +25,7 @@ EXTRA_OECONF:append = " --disable-debuggerd"
 EXTRA_OECONF:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'nad-stream-update', '--enable-libfsmgr', '', d)}"
 
 #Disable default libsync in system/core for 4.4 above kernels
-EXTRA_OECONF:append += "${@oe.utils.version_less_or_equal('PREFERRED_VERSION_linux-msm', '4.4', '', ' --disable-libsync', d)}"
+EXTRA_OECONF:append = "${@oe.utils.version_less_or_equal('PREFERRED_VERSION_linux-msm', '4.4', '', ' --disable-libsync', d)}"
 
 # Disable adb root privileges in USER builds for msm targets
 EXTRA_OECONF:append_msm = "${@bb.utils.contains('VARIANT','user',' --disable-adb-root','',d)}"
@@ -34,10 +34,10 @@ CPPFLAGS += "-I${STAGING_INCDIR}/ext4_utils"
 CPPFLAGS += "-I${STAGING_INCDIR}/libselinux"
 CPPFLAGS += "-I${STAGING_INCDIR}/libunwind"
 
-CPPFLAGS:append_apq8053 += " -DTARGET_IS_64_BIT"
-CPPFLAGS:append_apq8017 += " -DTARGET_IS_64_BIT"
-CPPFLAGS:append_apq8096 += " -DTARGET_IS_64_BIT"
-CPPFLAGS:append_apq8098 += " -DTARGET_IS_64_BIT"
+CPPFLAGS:append_apq8053 = " -DTARGET_IS_64_BIT"
+CPPFLAGS:append_apq8017 = " -DTARGET_IS_64_BIT"
+CPPFLAGS:append_apq8096 = " -DTARGET_IS_64_BIT"
+CPPFLAGS:append_apq8098 = " -DTARGET_IS_64_BIT"
 CPPFLAGS:remove_apq8053-32 = " -DTARGET_IS_64_BIT"
 
 USBCOMPOSITION         ?= "9025"

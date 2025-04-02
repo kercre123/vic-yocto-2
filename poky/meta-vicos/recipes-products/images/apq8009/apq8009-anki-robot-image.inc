@@ -9,7 +9,9 @@ IMAGE_INSTALL += "libdevmapper"
 IMAGE_INSTALL += "libsamplerate0"
 IMAGE_INSTALL += "libsndfile1"
 IMAGE_INSTALL += "lvm2"
-IMAGE_INSTALL += "rng-tools"
+
+#IMAGE_INSTALL += "rng-tools"
+
 IMAGE_INSTALL += "alsa-utils"
 IMAGE_INSTALL += "dhcpcd"
 IMAGE_INSTALL += "openssl-bin"

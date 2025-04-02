@@ -15,10 +15,10 @@ SRC_URI = "${CLO_LE_GIT}/pimd.git;protocol=https;branch=caf_migration/github/mas
            file://0001-pimd-Resolve-wrong-missing-if-clause-gaurds-error-fo.patch \
 "
 
-SRC_URI:append_sdxprairie += "\
+SRC_URI:append_sdxprairie = "\
            file://Resolve-Implicit-fallthrough-Werror.patch "
 
-SRC_URI:append_9615-cdp += " \
+SRC_URI:append_9615-cdp = " \
            file://defs_fix_multicast_subnetmask_on_rmnet.patch \
            file://vif_fix_multicast_subnetmask_on_rmnet.patch \
            file://pimd.conf \

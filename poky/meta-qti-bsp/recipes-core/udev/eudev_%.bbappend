@@ -3,12 +3,12 @@ PR = "r21"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${PV}:"
 
 #SRC_URI += "file://do-not-install-unnecessary-udev-rules.patch"
-SRC_URI:append_msm8960 += " file://${BASEMACHINE}/local.rules"
-SRC_URI:append_msm8974 += "file://${BASEMACHINE}/local.rules \
+SRC_URI:append_msm8960 = " file://${BASEMACHINE}/local.rules"
+SRC_URI:append_msm8974 = "file://${BASEMACHINE}/local.rules \
                            file://${BASEMACHINE}/set-dev-nodes.sh"
-SRC_URI:append_msm8610 += "file://${BASEMACHINE}/local.rules \
+SRC_URI:append_msm8610 = "file://${BASEMACHINE}/local.rules \
                            file://${BASEMACHINE}/set-dev-nodes.sh"
-SRC_URI:append_msm8226 += "file://${BASEMACHINE}/local.rules \
+SRC_URI:append_msm8226 = "file://${BASEMACHINE}/local.rules \
                            file://${BASEMACHINE}/set-dev-nodes.sh"
 
 do_install:append_msm8974 () {

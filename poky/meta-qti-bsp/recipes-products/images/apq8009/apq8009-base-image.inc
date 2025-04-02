@@ -6,7 +6,7 @@ IMAGE_FSTYPES += "ext4"
 
 IMAGE_INSTALL += "packagegroup-core-boot"
 
-#IMAGE_INSTALL += "${ROOTFS_PKGMANAGE_BOOTSTRAP}"
+IMAGE_INSTALL += "run-postinsts"
 IMAGE_INSTALL += "${CORE_IMAGE_EXTRA_INSTALL}"
 
 # utils and scripts needed for SELinux
@@ -65,6 +65,10 @@ CONFIG_FILE = "${COREBASE}/meta-qti-bsp/files/config_files/anki_user_config"
 VICTOR_CONFIG_FILE = "${DEPLOY_DIR_IMAGE}/victor_canned_fs_config"
 
 IMAGE_ROOTFS_EXTRA_SPACE = "307200"
+
+addtask makesystem after do_rootfs
+#addtask makesystem
+do_image_ext4[depends] += "${PN}:do_makesystem"
 
 do_makesystem() {
     echo "================ Creating system ================="

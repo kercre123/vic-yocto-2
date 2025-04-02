@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${PV}:"
 DEPENDS = "base-passwd"
 
-SRC_URI:append += "file://fstab"
+SRC_URI:append = "file://fstab"
 
 dirs755:append = " /media/cf /media/net /media/ram \
             /media/union /media/realroot /media/hdd /media/mmc1"
@@ -15,7 +15,7 @@ dirs755:append = " ${MACHINE_MNT_POINTS}"
 # /systemrw partition is needed only when system is RO.
 # Otherwise files can be directly written to / itself.
 dirs755:append = " ${@bb.utils.contains('DISTRO_FEATURES','ro-rootfs','/systemrw','',d)}"
-dirs755:append_apq8009 += "/firmware /persist /factory"
+dirs755:append_apq8009 = "/firmware /persist /factory"
 
 # Explicitly remove sepolicy entries from fstab when selinux is not present.
 fix_sepolicies () {

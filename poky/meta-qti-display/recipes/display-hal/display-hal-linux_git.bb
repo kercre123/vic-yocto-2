@@ -27,18 +27,18 @@ EXTRA_OECONF:append_apq8098 = " --enable-sdmhaldrm"
 
 LDFLAGS += "-llog -lhardware -lutils -lcutils"
 
-CPPFLAGS:append_apq8098 += "-DCOMPILE_DRM"
+CPPFLAGS:append_apq8098 = "-DCOMPILE_DRM"
 CPPFLAGS += "-DTARGET_HEADLESS"
 CPPFLAGS += "-DVENUS_COLOR_FORMAT"
 CPPFLAGS += "-DPAGE_SIZE=4096"
-CPPFLAGS:append_apq8098 += "-I${WORKSPACE}/display/display-hal/libdrmutils"
+CPPFLAGS:append_apq8098 = "-I${WORKSPACE}/display/display-hal/libdrmutils"
 CPPFLAGS += "-I${WORKSPACE}/display/display-hal/libqdutils"
 CPPFLAGS += "-I${WORKSPACE}/display/display-hal/libqservice"
 CPPFLAGS += "-I${WORKSPACE}/display/display-hal/sdm/include"
 CPPFLAGS += "-I${WORKSPACE}/display/display-hal/include"
 CPPFLAGS += "-I${WORKSPACE}/display/display-hal/libgralloc"
 CPPFLAGS += "-I${WORKSPACE}/system/core/include"
-CPPFLAGS:append_apq8098 += "-I${STAGING_INCDIR}/libdrm"
+CPPFLAGS:append_apq8098 = "-I${STAGING_INCDIR}/libdrm"
 
 do_install:append () {
     # libhardware expects to find /usr/lib/hw/gralloc.*.so

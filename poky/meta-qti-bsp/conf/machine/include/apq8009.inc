@@ -12,7 +12,7 @@ DEFAULTTUNE ?= "armv7ahf-neon-vfpv4"
 include conf/machine/include/arm/armv7a/tune-cortexa7.inc
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-msm"
-PREFERRED_VERSION_linux-msm = "4.9"
+PREFERRED_VERSION_linux-msm = "3.18"
 
 MACHINE_DISPLAY_WIDTH_PIXELS ?= "480"
 MACHINE_DISPLAY_HEIGHT_PIXELS ?= "640"
@@ -33,7 +33,7 @@ EXTRA_IMAGECMD ?= "-N 2048"
 MACHINE_MNT_POINTS = "/firmware /persist /cache"
 
 # Sizes for EXT4 (in bytes)
-SYSTEM_SIZE_EXT4 ?= "524288000"
+SYSTEM_SIZE_EXT4 ?= "838860800"
 SYSTEMRW_SIZE_EXT4 ?= "8388608"
 USERDATA_SIZE_EXT4 ?= "524288000"
 CACHE_SIZE_EXT4 ?= "524288000"

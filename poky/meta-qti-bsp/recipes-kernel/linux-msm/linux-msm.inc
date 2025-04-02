@@ -46,7 +46,7 @@ KBRANCH ?= ""
 KMETA = "kernel-meta"
 KMACHINE ?= "${MACHINE}"
 KCONFIG_MODE = "--alldefconfig"
-KBUILD_DEFCONFIG ?= "${KERNEL_CONFIG}"
+#KBUILD_DEFCONFIG ?= "${KERNEL_CONFIG}"
 LINUX_VERSION_EXTENSION = "${@['-perf', ''][d.getVar('VARIANT', True) == ('' or 'debug')]}"
 
 do_kernel_checkout[noexec] = "1"
@@ -85,4 +85,4 @@ do_bundle_initramfs:append () {
 }
 
 # Put the zImage in the kernel-dev pkg
-FILES:kernel-dev += "/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}"
+#FILES:kernel-dev += "/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}"

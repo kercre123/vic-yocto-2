@@ -1,5 +1,5 @@
 # Extend to -dev and -src packages
-DUMMYPROVIDES:append += "\
+DUMMYPROVIDES:append = "\
     busybox-dev \
     busybox-src \
     coreutils-dev \
