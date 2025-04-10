@@ -17,8 +17,8 @@ do_compile() {
 }
 
 do_install() {
-  install -d ${D}/bin
-  install -m 0755 ${S}/rampost ${D}/bin/
+  install -d ${D}/usr/bin
+  install -m 0755 ${S}/rampost ${D}/usr/bin/
 }
 
-FILES:${PN} += "/bin/rampost"
+FILES:${PN} += "/usr/bin/rampost"

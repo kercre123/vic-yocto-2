@@ -16,7 +16,7 @@ UBINIZE_CFG              = "${DEPLOY_DIR_IMAGE}/ubinize_system_userdata.cfg"
 
 BASEPRODUCT = "${@d.getVar('PRODUCT', False)}"
 
-IMAGE_PREPROCESS_COMMAND:prepend    = "clean_usr_rootfs; purge_rootfs; prelink_image; symlink_modules;"
+IMAGE_PREPROCESS_COMMAND:prepend    = "clean_usr_rootfs; purge_rootfs;"
 
 # Generating userdata image in EXT4
 IMAGE_PREPROCESS_COMMAND   += "create_archive_usr_img; create_usr_ext4_img;"

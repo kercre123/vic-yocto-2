@@ -29,8 +29,8 @@ do_compile () {
 
 
 do_install() {
-  install -d ${D}/bin
-  install -m 0700 ${WORKDIR}/bootctl ${D}/bin/
+  install -d ${D}/usr/bin
+  install -m 0700 ${WORKDIR}/bootctl ${D}/usr/bin/bootctl-anki
 
   install -d ${D}${sysconfdir}/initscripts
   install -m 0755 ${WORKDIR}/boot-successful.sh ${D}${sysconfdir}/initscripts/boot-successful
@@ -42,6 +42,6 @@ do_install() {
     ${D}${sysconfdir}/systemd/system/multi-user.target.wants/boot-successful.service
 }
 
-FILES:${PN} += "/bin"
+FILES:${PN} += "/usr/bin"
 FILES:${PN} += "/etc/systemd/system"
 FILES:${PN} += "/etc/initscripts"

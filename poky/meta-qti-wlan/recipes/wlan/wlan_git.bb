@@ -15,7 +15,7 @@ PR = "r2"
 DEPENDS = "virtual/kernel iw"
 
 FILESPATH =+ "${WORKSPACE}:"
-SRC_URI = "file://wlan"
+#SRC_URI = "file://wlan"
 
 S = "${WORKDIR}/wlan/host"
 

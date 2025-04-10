@@ -57,6 +57,7 @@ do_install:append() {
    install -m 0755 ${S}/adb/launch_adbd -D ${D}${sysconfdir}/launch_adbd
    install -b -m 0644 /dev/null ${D}${sysconfdir}/adb_devid
    install -d ${D}${sysconfdir}/usb/
+   install -d ${D}${base_sbindir}
    install -b -m 0644 /dev/null ${D}${sysconfdir}/usb/boot_hsusb_comp
    install -b -m 0644 /dev/null ${D}${sysconfdir}/usb/boot_hsic_comp
    echo ${USBCOMPOSITION} > ${D}${sysconfdir}/usb/boot_hsusb_comp
@@ -208,7 +209,7 @@ INITSCRIPT_PARAMS_${PN}-post-boot = "start 90 2 3 4 5 ."
 
 PACKAGES =+ "${PN}-adbd-dbg ${PN}-adbd ${PN}-adbd-dev"
 FILES:${PN}-adbd-dbg = "${base_sbindir}/.debug/adbd ${libdir}/.debug/libadbd.*"
-FILES:${PN}-adbd     = "${base_sbindir}/adbd ${sysconfdir}/init.d/adbd ${libdir}/libadbd.so.*"
+FILES:${PN}-adbd     = "${base_sbindir}/adbd ${sysconfdir}/init.d/adbd ${libdir}/libadbd.so.* /sbin/adbd"
 FILES:${PN}-adbd    += "${systemd_unitdir}/system/adbd.service ${systemd_unitdir}/system/multi-user.target.wants/adbd.service ${systemd_unitdir}/system/local-fs.target.wants/adbd.service ${systemd_unitdir}/system/ffbm.target.wants/adbd.service ${sysconfdir}/launch_adbd ${sysconfdir}/initscripts/adbd ${sysconfdir}/adb_devid"
 FILES:${PN}-adbd-dev = "${libdir}/libadbd.so ${libdir}/libadbd.la"
 
@@ -226,7 +227,7 @@ INSANE_SKIP:${PN}-post-boot = "file-rdeps"
 
 PACKAGES =+ "${PN}-logd-dbg ${PN}-logd"
 FILES:${PN}-logd-dbg  = "${base_sbindir}/.debug/logd"
-FILES:${PN}-logd      = "${sysconfdir}/init.d/logd ${base_sbindir}/logd"
+FILES:${PN}-logd      = "${sysconfdir}/init.d/logd ${base_sbindir}/logd /sbin/logd"
 FILES:${PN}-logd     += "${systemd_unitdir}/system/earlyinit-logd.service ${systemd_unitdir}/system/logd.path ${systemd_unitdir}/system/logd.service"
 FILES:${PN}-logd     += "${systemd_unitdir}/system/multi-user.target.wants/earlyinit-logd.service ${systemd_unitdir}/system/multi-user.target.wants/logd.path"
 FILES:${PN}-logd     += "${systemd_unitdir}/system/ffbm.target.wants/earlyinit-logd.service ${systemd_unitdir}/system/ffbm.target.wants/logd.path"
@@ -238,9 +239,15 @@ FILES:${PN}-debuggerd     += "${systemd_unitdir}/system/init_debuggerd.service $
 
 PACKAGES =+ "${PN}-leprop-dbg ${PN}-leprop"
 FILES:${PN}-leprop-dbg  = "${base_sbindir}/.debug/leprop-service ${bindir}/.debug/getprop ${bindir}/.debug/setprop"
-FILES:${PN}-leprop      = "${base_sbindir}/leprop-service ${bindir}/getprop ${bindir}/setprop ${sysconfdir}/proptrigger.sh ${sysconfdir}/proptrigger.conf"
+FILES:${PN}-leprop      = "${base_sbindir}/leprop-service ${bindir}/getprop ${bindir}/setprop ${sysconfdir}/proptrigger.sh ${sysconfdir}/proptrigger.conf /sbin/leprop-service"
 FILES:${PN}-leprop     += "${systemd_unitdir}/system/leprop.service ${systemd_unitdir}/system/multi-user.target.wants/leprop.service ${systemd_unitdir}/system/ffbm.target.wants/leprop.service ${sysconfdir}/build.prop"
 
 FILES:${PN}-dbg  = "${bindir}/.debug/* ${libdir}/.debug/*"
 FILES:${PN}      = "${bindir}/* ${libdir}/pkgconfig/* ${libdir}/*.so.* "
 FILES:${PN}-dev  = "${libdir}/*.so ${libdir}/*.la ${includedir}*"
+
+INSANE_SKIP:${PN} += " usrmerge"
+INSANE_SKIP:${PN}-adbd += " usrmerge"
+INSANE_SKIP:${PN}-leprop += " usrmerge"
+INSANE_SKIP:${PN}-logd += " usrmerge"
+INSANE_SKIP:${PN}-leprop-dbg += " usrmerge"

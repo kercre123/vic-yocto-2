@@ -13,6 +13,8 @@ SRC_URI = "file://qtiroot \
 	   file://other"
 
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 
 do_install () {
@@ -23,13 +25,18 @@ do_install () {
 	install -d ${D}/etc/initscripts
 	install -d ${D}/lib/systemd/system/multi-user.target.wants
 	install -d ${D}/usr/bin
-	install -d ${D}/sbin
-	cp -r ${S}/other/export-gpio ${D}/sbin/export-gpio
+	install -d ${D}/usr/sbin
+	install -d ${D}/data/misc/camera
+	install -d ${D}/data/misc/bluetooth
+	cp -r ${S}/other/export-gpio ${D}/usr/sbin/export-gpio
+	cp -r ${S}/other/getprop ${D}/usr/bin/getprop
+	cp -r ${S}/other/setprop ${D}/usr/bin/setprop
 	cp -r ${S}/initscripts/* ${D}/etc/initscripts/
 	cp -r ${S}/qtiroot ${D}/usr/qtiroot
 	ln -sf /usr/qtiroot/qtirun ${D}/usr/bin/qtirun
 	cp -r ${S}/services/* ${D}/lib/systemd/system/
 	ln -sf /lib/systemd/system/anki-audio-init.service ${D}/lib/systemd/system/multi-user.target.wants/
+	# this is now installed by the update-engine recipe
 	#ln -sf /lib/systemd/system/boot-successful.service ${D}/lib/systemd/system/multi-user.target.wants/
         ln -sf /lib/systemd/system/logd.service ${D}/lib/systemd/system/multi-user.target.wants/
         ln -sf /lib/systemd/system/mdsprpcd.service ${D}/lib/systemd/system/multi-user.target.wants/
@@ -39,7 +46,9 @@ do_install () {
         ln -sf /lib/systemd/system/qti_system_daemon.service ${D}/lib/systemd/system/multi-user.target.wants/
         ln -sf /lib/systemd/system/rmt_storage.service ${D}/lib/systemd/system/multi-user.target.wants/
 	ln -sf /lib/systemd/system/init_audio.service ${D}/lib/systemd/system/multi-user.target.wants/
-
+	ln -sf /lib/systemd/system/ankibluetoothd.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/btproperty.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/leprop.service ${D}/lib/systemd/system/multi-user.target.wants/
 }
 
 FILES:${PN} = "/usr/qtiroot \
@@ -47,7 +56,9 @@ FILES:${PN} = "/usr/qtiroot \
 		/lib/systemd/system/multi-user.target.wants \
 		/usr/bin/qtirun \
 		/etc/initscripts \
-		/sbin/export-gpio"
+		/data/misc/camera \
+		/data/misc/bluetooth \
+		/usr/sbin/export-gpio"
 
 # yocto doesn't really allow precompiled binaries
 INSANE_SKIP:${PN} = "file-rdeps"

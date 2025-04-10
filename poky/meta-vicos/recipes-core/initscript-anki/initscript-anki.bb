@@ -7,6 +7,8 @@ RDEPENDS:${PN} = "udev udev-extraconf"
 SRC_URI = "file://init-boot.sh file://syscon.dfu"
 
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 do_install() {
         install -m 0755 ${WORKDIR}/init-boot.sh ${D}/init

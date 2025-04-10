@@ -3,7 +3,7 @@
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 [Unit]
 Description=qti system daemon Service
-SourcePath=/usr/bin/qti_system_daemon
+SourcePath=/usr/qtiroot/usr/bin/qti_system_daemon
 After=servicemanager.service
 
 [Service]

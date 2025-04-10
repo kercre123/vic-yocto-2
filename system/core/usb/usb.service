@@ -29,8 +29,8 @@
 [Unit]
 SourcePath=/etc/initscripts/usb
 Description=usb Service
-After=systemrw.mount leprop.service
-Requires=systemrw-adb_devid.service systemrw-boot_hsusb_comp.service
+#After=systemrw.mount leprop.service
+#Requires=systemrw-adb_devid.service systemrw-boot_hsusb_comp.service
 
 [Service]
 Type=forking
@@ -42,3 +42,6 @@ GuessMainPID=no
 RemainAfterExit=yes
 ExecStart=/etc/initscripts/usb start
 ExecStop=/etc/initscripts/usb stop
+
+[Install]
+WantedBy=multi-user.target

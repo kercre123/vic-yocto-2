@@ -58,3 +58,6 @@ pkg_postinst_${PN} () {
 
 FILES:${PN} += "/lib/*"
 FILES:${PN} += "${systemd_unitdir}/system/"
+
+INSANE_SKIP:${PN} += " usrmerge"
+INSANE_SKIP:${PN}-dbg += " usrmerge"

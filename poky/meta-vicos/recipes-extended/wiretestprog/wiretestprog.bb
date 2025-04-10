@@ -12,6 +12,8 @@ SRC_URI = "file://vic-test \
 	   file://testSound.wav"
 
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 
 inherit systemd
@@ -31,14 +33,13 @@ do_install () {
 	#install -p -m 755 rampost ${D}/bin/
         ln -sf /etc/systemd/system/vic-test.service ${D}/etc/systemd/system/multi-user.target.wants/vic-test.service
 	#some things need this
-	ln -sf /lib/ld-2.35.so ${D}/lib/ld-linux.so.3
+	#ln -sf /lib/ld-2.35.so ${D}/lib/ld-linux.so.3
 }
 
 FILES:${PN} = "/bin/vic-test \
 		/bin \
 		/lib \
 		/lib/vector-gobot.so \
-		/lib/ld-linux-so.3 \
 		/etc/testSound.wav \
 		/bin/bootctl \
 		/etc/systemd/system \

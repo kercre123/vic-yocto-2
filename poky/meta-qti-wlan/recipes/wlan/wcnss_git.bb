@@ -58,3 +58,5 @@ INITSCRIPT_PARAMS = "start 60 2 3 4 5 . stop 20 0 1 6 ."
 FILES:${PN} = "/lib/firmware/*"
 FILES:${PN} += "/etc/*"
 FILES:${PN} += "/lib/firmware/wlan/prima/*"
+
+INSANE_SKIP:${PN} += " usrmerge"

@@ -4,22 +4,22 @@
 require ${COREBASE}/meta-qti-bsp/recipes-products/images/include/mdm-ramdisk.inc
 DEPENDS += " \
              virtual/kernel \
-             android-tools-native \
              pkgconfig-native \
              gtk-doc-native \
              gettext-native \
              e2fsprogs-native \
              ext4-utils-native \
+             mkbootimg-native \
              mtd-utils-native \
 "
 
 RDEPENDS += " \
              pkgconfig-native \
-             android-tools-native \
              gtk-doc-native \
              gettext-native \
              e2fsprogs-native \
              ext4-utils-native \
+	     mkbootimg-native \
              mtd-utils-native \
 "
 

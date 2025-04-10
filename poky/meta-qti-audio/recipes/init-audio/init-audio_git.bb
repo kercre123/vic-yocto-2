@@ -15,6 +15,8 @@ SRC_URI  += "file://init-audio.conf"
 do_compile[noexec] = "1"
 
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 INITSCRIPT_NAME = "init_qcom_audio"
 INITSCRIPT_PARAMS = "start 99 2 3 4 5 . stop 1 0 1 6 ."

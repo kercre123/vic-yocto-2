@@ -5,3 +5,4 @@ sstate-cache/
 tmp-glibc/
 os-version-rev
 bitbake-cookerdaemon.log
+workspace/

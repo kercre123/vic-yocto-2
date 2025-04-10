@@ -26,4 +26,6 @@ do_install:append() {
    fi
 }
 
+FILES:${PN} += "/lib/systemd/system/dbus.service.d/dbus.conf"
 
+INSANE_SKIP:${PN} += " usrmerge"

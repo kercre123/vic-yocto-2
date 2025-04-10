@@ -34,12 +34,13 @@ IMAGE_INSTALL += "libcutils"
 IMAGE_INSTALL += "liblog"
 
 IMAGE_INSTALL += "libxml2"
+IMAGE_INSTALL += "tinyalsa"
 
 IMAGE_INSTALL += "start-scripts-find-partitions"
 IMAGE_INSTALL += "start-scripts-firmware-links"
 IMAGE_INSTALL += "${@oe.utils.conditional('USER_BUILD', '1', '', 'system-core-adbd', d)}"
 IMAGE_INSTALL += "system-core-logd"
-IMAGE_INSTALL += "system-core-leprop"
+#IMAGE_INSTALL += "system-core-leprop"
 IMAGE_INSTALL += "system-core-usb"
 IMAGE_INSTALL += "system-core-post-boot"
 IMAGE_INSTALL += "system-conf"
@@ -102,7 +103,7 @@ do_makesystem() {
     make_ext4fs -l ${SYSTEMRW_SIZE_EXT4} ${DEPLOY_DIR_IMAGE}/${MACHINE}-systemrw.ext4
 
     veritysetup --data-block-size=${BLOCK_SIZE} --data-blocks=${DATA_BLOCKS} --hash-offset=${SYSTEM_SIZE_EXT4} format ${RAW_FILE} ${RAW_FILE} >${VERITYSETUP_OUTPUT}
-    img2simg ${RAW_FILE} ${SPARSE_FILE}
+    #img2simg ${RAW_FILE} ${SPARSE_FILE}
 
 
     echo "=== Generate Boot Image containing Kernel, DTB, initramfs etc... ===="
@@ -138,7 +139,7 @@ do_makesystem() {
 
     RAMDISK="/dev/null"
     if [ ! -z "${INITRAMFS_IMAGE}" ]; then
-	    RAMDISK="${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE}-${MACHINE}.cpio.gz"
+	    RAMDISK="${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE}-${MACHINE}.rootfs.cpio.gz"
     fi
 
     ## Save kernel cmd line for debugging purposes

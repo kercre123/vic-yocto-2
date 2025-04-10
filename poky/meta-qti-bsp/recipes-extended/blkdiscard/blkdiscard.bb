@@ -9,8 +9,8 @@ do_compile () {
 }
 
 do_install() {
-  install -d ${D}/bin
-  install -m 0755 ${WORKDIR}/blkdiscard ${D}/bin/
+  install -d ${D}/usr/bin
+  install -m 0755 ${WORKDIR}/blkdiscard ${D}/usr/bin/
 }
 
-FILES:${PN} += "/bin/blkdiscard"
+FILES:${PN} += "/usr/bin/blkdiscard"

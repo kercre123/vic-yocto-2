@@ -1,4 +1,9 @@
-# vic-yocto
+# DO NOT USE THIS YET
+# DO NOT USE THIS YET
+# DO NOT USE THIS YET
+# DO NOT USE THIS YET
+
+# vic-yocto-2
 
 Vector's original OS is built with an old version of Yocto/OpenEmbedded. This project aims to upgrade that.
 
@@ -12,9 +17,9 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 ## Status
 
 -	Kernel: 3.18.66
--	glibc: 2.35
+-	glibc: 2.39
 -	arch: armhf
--	yocto: kirkstone (4.0)
+-	yocto: scarthgap (5.0)
 
 ## Notes
 
@@ -47,6 +52,13 @@ cd ../install-image
 # replace vectorip with vector's ip address, /path/to/sshkey with the path to his ssh key, ssid with your network name, password with your network password
 sudo ./install.sh vectorip /path/to/sshkey "ssid" "password"
 ```
+
+## Todo:
+
+- Get `victor` in there
+- Get Bluetooth working
+- Get userdata mounting
+- Get prod (dm-verity) builds working??
 
 He should eventually boot up to a screen showing "booted!" and SSH should be available (with [this key](http://wire.my.to:81/ssh_root_key)).
 

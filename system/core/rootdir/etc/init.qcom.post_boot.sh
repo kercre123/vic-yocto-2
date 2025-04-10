@@ -589,12 +589,12 @@ esac
 
 case "$target" in
     "apq8009" | "msm8909" )
-        ProductName=`grep ro.product.name /build.prop | sed "s/ro.product.name=//"`
+        ProductName="robot"
         case $ProductName in
             *robot*)
                 # HMP scheduler settings for 8909 similiar to 8916
-                echo 2 > /proc/sys/kernel/sched_window_stats_policy
-                echo 3 > /proc/sys/kernel/sched_ravg_hist_size
+                #echo 2 > /proc/sys/kernel/sched_window_stats_policy
+                #echo 3 > /proc/sys/kernel/sched_ravg_hist_size
 
                 # Apply governor settings for 8909
 

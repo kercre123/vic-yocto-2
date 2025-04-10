@@ -14,8 +14,8 @@ do_compile () {
 }
 
 do_install() {
-  install -d ${D}/bin
-  install -m 0755 ${WORKDIR}/emr-cat ${D}/bin/
+  install -d ${D}/usr/bin
+  install -m 0755 ${WORKDIR}/emr-cat ${D}/usr/bin/
 }
 
-FILES:${PN} += "/bin/emr-cat"
+FILES:${PN} += "/usr/bin/emr-cat"

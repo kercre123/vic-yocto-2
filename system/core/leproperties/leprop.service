@@ -1,9 +1,9 @@
 [Unit]
 SourcePath=/sbin/leprop-service
 Description=leprop Service
-After=systemrw-build.prop.service
-Before=persist-prop.service
-Requires=systemrw-build.prop.service persist-prop.service
+#After=systemrw-build.prop.service
+#Before=persist-prop.service
+#Requires=systemrw-build.prop.service persist-prop.service
 
 [Service]
 Restart=always

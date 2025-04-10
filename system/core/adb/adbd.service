@@ -40,3 +40,6 @@ GuessMainPID=no
 RemainAfterExit=yes
 ExecStart=/etc/launch_adbd start
 ExecStop=/etc/launch_adbd stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+SourcePath=/usr/qtiroot/sbin/leprop-service
+Description=leprop Service
+#After=mount-data.service
+#Requires=mount-data.service
+#Before=persist-prop.service
+#Requires=persist-prop.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/qtirun /sbin/leprop-service
+
+[Install]
+WantedBy=multi-user.target

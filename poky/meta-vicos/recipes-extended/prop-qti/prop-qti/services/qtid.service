@@ -1,5 +1,5 @@
 [Unit]
-SourcePath=/usr/bin/qti
+SourcePath=/usr/qtiroot/usr/bin/qti
 Description= qti service
 
 [Service]

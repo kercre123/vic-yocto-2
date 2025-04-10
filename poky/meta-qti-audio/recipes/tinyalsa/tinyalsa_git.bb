@@ -7,7 +7,7 @@ ${LICENSE};md5=3775480a712fc46a69647678acb234cb"
 PR = "r1"
 
 SRCREV = "1369a0ff9979cfbdaa0ca88e4696265655cd198b"
-SRC_URI = "git://codeaurora.org/quic/le/platform/external/tinyalsa.git;protocol=git;branch=github/master \
+SRC_URI = "git://github.com/tinyalsa/tinyalsa.git;protocol=https;branch=master \
            file://Makefile.am \
            file://configure.ac \
            file://tinyalsa.pc.in \
@@ -25,6 +25,8 @@ SRC_URI:append_sdxprairie = "file://0001-tinymix_multi.patch \
                              file://0001-tinyplay-lower-threshold-values.patch"
 
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 EXTRA_OEMAKE = "DEFAULT_INCLUDES=-I${WORKDIR}/git/include/"
 

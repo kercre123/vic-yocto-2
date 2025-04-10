@@ -14,7 +14,7 @@ case "$SLOT_SUFFIX" in
     THIS_SLOT='f'
 esac
 
-bootctl $THIS_SLOT mark_successful
+bootctl-anki $THIS_SLOT mark_successful
 setprop ro.boot.successful 1
 
 dmesg > /data/boot.log

@@ -6,6 +6,8 @@ inherit update-rc.d
 
 SRC_URI +="file://init-can.sh"
 S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 SRC_DIR = "${THISDIR}"
 
 PR = "r2"

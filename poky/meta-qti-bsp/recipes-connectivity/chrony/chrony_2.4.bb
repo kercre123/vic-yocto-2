@@ -101,6 +101,10 @@ do_install() {
     install -d ${D}${systemd_unitdir}/system
     install -m 0644 ${S}/examples/chronyd.service ${D}${systemd_unitdir}/system/
 
+    # make it auto-run
+    install -d -d ${D}${systemd_unitdir}/system/multi-user.target.wants
+    ln -sf /lib/systemd/system/chronyd.service ${D}${systemd_unitdir}/system/multi-user.target.wants/
+
     # Variable data (for drift and/or rtc file)
     install -d ${D}${userfsdatadir}/chrony
 

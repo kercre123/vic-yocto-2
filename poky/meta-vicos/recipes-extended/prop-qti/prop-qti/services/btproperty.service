@@ -1,0 +1,12 @@
+[Unit]
+Description=leprop
+Requires=leprop.service
+After=leprop.service
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/qtirun /usr/bin/btproperty
+
+[Install]
+WantedBy=multi-user.target

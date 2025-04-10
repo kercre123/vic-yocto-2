@@ -9,7 +9,6 @@ Type=oneshot
 IgnoreSIGPIPE=no
 KillMode=process
 RemainAfterExit=yes
-ExecStartPre=/bin/sleep 60
 ExecStart=/etc/initscripts/anki-audio-init
 #Group=anki
 

@@ -9,6 +9,8 @@ if [[ ! -d bootable ]]; then
 	fi
 fi
 
+./build/deps.sh
+
 
 docker build --build-arg UID=$(id -u $USER) --build-arg GID=$(id -g $USER) -t vic-yocto-builder build/
 

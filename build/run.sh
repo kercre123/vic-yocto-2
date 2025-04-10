@@ -15,4 +15,4 @@ fi
 docker run -it \
     -v "$(pwd):/home/build/vic-yocto-2" \
     -v "$(pwd)/anki-deps:/home/build/.anki" \
-    vic-yocto-builder bash -c "cd ~/vic-yocto-2/poky && source build/conf/set_bb_env.sh && $@"
+    vic-yocto-builder bash -c "cd ~/vic-yocto-2/poky && source build/conf/set_bb_env.sh && VARIANT=debug && MACHINE=apq8009-robot && $@"

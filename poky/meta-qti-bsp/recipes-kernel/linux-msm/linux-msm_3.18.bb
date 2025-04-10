@@ -16,8 +16,8 @@ DEPENDS:apq8096 += "dtc-native"
 
 #FILES:kernel-dev += "/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}"
 
-KERNEL_CC = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabihf-gcc"
-KERNEL_LD = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabihf-ld"
+KERNEL_CC = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-gcc"
+KERNEL_LD = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-ld"
 
 do_configure () {
     oe_runmake_call CC="${KERNEL_CC}" LD="${KERNEL_LD}" -C ${S} ARCH=${ARCH} ${KERNEL_EXTRA_ARGS} ${KERNEL_CONFIG}

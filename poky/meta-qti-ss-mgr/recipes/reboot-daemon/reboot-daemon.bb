@@ -29,3 +29,8 @@ do_install() {
            ${D}${systemd_unitdir}/system/ffbm.target.wants/reboot-daemon.service
    fi
 }
+
+FILES:${PN} += "/sbin/reboot-daemon"
+
+INSANE_SKIP:${PN} += " usrmerge"
+INSANE_SKIP:${PN}-dbg += " usrmerge"

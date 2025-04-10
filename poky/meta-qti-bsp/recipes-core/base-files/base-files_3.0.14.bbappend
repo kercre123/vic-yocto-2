@@ -1,7 +1,8 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${PV}:"
 DEPENDS = "base-passwd"
 
-SRC_URI:append = "file://fstab"
+SRC_URI:append = "file://fstab \
+                  file://profile"
 
 dirs755:append = " /media/cf /media/net /media/ram \
             /media/union /media/realroot /media/hdd /media/mmc1"
@@ -26,24 +27,15 @@ fix_sepolicies () {
 }
 do_install[prefuncs] += " ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', '', 'fix_sepolicies', d)}"
 
-do_install:append(){
-    #if [ ${BASEMACHINE} == "mdm9650" ]; then
-    #  ln -s /etc/resolvconf/run/resolv.conf ${D}/etc/resolv.conf
-    #else
-    #  ln -s /var/run/resolv.conf ${D}/etc/resolv.conf
-    #fi
-
-}
-
 # Don't install fstab for systemd targets
 do_install:append() {
-#    if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
-#        rm ${D}${sysconfdir}/fstab
-#    else
-        install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
-#    fi
-# kercre123 - install custom profile
-     install -m 0755 ${WORKDIR}/profile ${D}${sysconfdir}/profile
+    # kercre123 - install custom profile
+    install -m 0755 ${WORKDIR}/profile ${D}${sysconfdir}/profile
+
+    # kercre123 - make sure systemd's resolved service is discoverable
+    install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
+    ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/dbus-org.freedesktop.resolve1.service
+    ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/systemd-resolved.service
 }
 
 do_install:append_sdm845 () {
@@ -51,3 +43,5 @@ do_install:append_sdm845 () {
     install -m 755 -o diag -g diag -d ${D}/mnt/usbstorage1
     install -m 755 -o diag -g diag -d ${D}/mnt/usbstorage2
 }
+
+FILES:${PN} += " /etc/systemd/system/dbus-org.freedesktop.resolve1.service /etc/systemd/system/multi-user.target.wants/systemd-resolved.service"
