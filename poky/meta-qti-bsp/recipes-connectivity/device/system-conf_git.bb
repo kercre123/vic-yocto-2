@@ -12,31 +12,32 @@ SRC_URI += "file://wlan_daemon.service"
 # Update for each machine
 S = "${WORKDIR}/mdm-init/"
 
-do_install:append(){
+# do_install:append(){
 #  if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
-      install -d ${D}/etc/initscripts
-      cp ${D}/etc/init.d/wlan ${D}/etc/initscripts/wlan
+#      install -d ${D}/etc/initscripts
+#      cp ${D}/etc/init.d/wlan ${D}/etc/initscripts/wlan
 #      if ${@bb.utils.contains('DISTRO_FEATURES', 'wifi','false', 'true', d)}; then
-          install -d ${D}/etc/systemd/system/
-          install -m 0644 ${WORKDIR}/wlan_daemon.service -D ${D}/etc/systemd/system/wlan_daemon.service
-          # if 'wifi' is defined, we are handling WLAN in the proper 'Yocto'
-          # way and this script will no longer be needed
-          install -d ${D}/etc/systemd/system/multi-user.target.wants/
-          # enable the service for multi-user.target
-          ln -sf /etc/systemd/system/wlan_daemon.service \
-             ${D}/etc/systemd/system/multi-user.target.wants/wlan_daemon.service
+#          install -d ${D}/etc/systemd/system/
+#          install -m 0644 ${WORKDIR}/wlan_daemon.service -D ${D}/etc/systemd/system/wlan_daemon.service
+#           if 'wifi' is defined, we are handling WLAN in the proper 'Yocto'
+#           way and this script will no longer be needed
+#          install -d ${D}/etc/systemd/system/multi-user.target.wants/
+#           enable the service for multi-user.target
+#          ln -sf /etc/systemd/system/wlan_daemon.service \
+#             ${D}/etc/systemd/system/multi-user.target.wants/wlan_daemon.service
 #      fi
 #  else
 #     install -m 0755 ${S}/wlan_daemon -D ${D}${sysconfdir}/init.d/wlan_daemon
 #  fi
+# }
+do_install:append() {
+    rm -rf ${D}/data
 }
 
-FILES:${PN} += "${userfsdatadir}/misc/wifi/*"
+
+#FILES:${PN} += "${userfsdatadir}/misc/wifi/*"
 FILES:${PN} += "${base_libdir}/firmware/wlan/qca_cld/*"
 FILES:${PN} += "${nonarch_base_libdir}/firmware/wlan/qca_cld/* ${sysconfdir}/init.d/* "
-FILES:${PN} += "/etc/systemd/system/wlan_daemon.service \
-		/lib/systemd/system/multi-user.target.wants/wlan_daemon.service \
-		/etc/initscripts/wlan"
 
 BASEPRODUCT = "${@d.getVar('PRODUCT', False)}"
 
@@ -48,7 +49,8 @@ EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8009', '--enable-tar
 EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8017', '--enable-target-apq8017=yes', '', d)}"
 EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'sdx20', '--enable-target-sdx20=yes', '', d)}"
 
-EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8009', '--enable-pronto-wlan=yes', '', d)}"
+# no.
+#EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8009', '--enable-pronto-wlan=yes', '', d)}"
 EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8053', '--enable-pronto-wlan=yes', '', d)}"
 EXTRA_OECONF += "${@oe.utils.conditional('BASEMACHINE', 'apq8017', '--enable-pronto-wlan=yes', '', d)}"
 

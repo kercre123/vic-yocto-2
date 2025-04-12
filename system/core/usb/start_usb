@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2012-2015, 2018, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,10 +25,15 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Starts the USB Android Gadget.
+wait_for_data_mount() {
+  while ! [ -d /data/usb ]
+  do
+	echo "waiting for /data to mount"
+  done
+}
+
 export KERNEL=`uname -r`
 export SOFTAP_W_DUN="N"
-export ANDROID_LOG_TAGS="*:d"
-export LS_COLORS="none"
 
 case "$1" in
   start)
@@ -41,19 +46,12 @@ case "$1" in
 	if [ -f /sys/devices/soc0/hw_platform ]; then
 		socplatform=`cat /sys/devices/soc0/machine` 2> /dev/null
 		soc_hwplatform=`cat /sys/devices/soc0/hw_platform`
-		soc_subtypeid=`cat /sys/devices/soc0/platform_subtype_id`
 	else
 		socplatform=`cat /sys/devices/system/soc/soc0/machine` 2> /dev/null
 	fi
 	echo "soc:" $socplatform
 
-	# find serialno from cmdline
-	serialno=`cat /proc/cmdline | grep -o "androidboot.serialno=[A-Za-z0-9]*" | cut -d "=" -f2`
-	if [ "$serialno" == "" ]; then
-		echo "serialno not found with cmdline, use default"
-		serialno="12345678"
-	fi
-	echo "serialno:" $serialno
+  serialno=`/bin/emr-cat e`
 
 	msm_serial=`cat /sys/devices/soc0/serial_number`
 	msm_serial_hex=`printf %08X $msm_serial`
@@ -75,27 +73,20 @@ case "$1" in
 		mkdir functions/diag.diag
 		mkdir functions/cser.dun.0
 		mkdir functions/cser.nmea.1
-		mkdir functions/gser.0
 		mkdir functions/rmnet_bam.rmnet
 		mkdir functions/gsi.rmnet
 		mkdir functions/gsi.rndis
 		mkdir functions/gsi.ecm
 		mkdir functions/gsi.mbim
 		mkdir functions/gsi.dpl
-		mkdir functions/gsi.gps
 		mkdir functions/ncm.0
 		mkdir functions/qdss.qdss
 		mkdir functions/uac1.uac1
-		if [ ! -s "/etc/adb_devid" ]
-		then
-			echo $serialno > /etc/adb_devid
-			sync
-		fi
-		cat /etc/adb_devid > strings/0x409/serialnumber
+		echo "$serialno" > strings/0x409/serialnumber
 		echo "QCOM" > strings/0x409/manufacturer
-		echo "$product_string" > strings/0x409/product
+		echo "$socplatform" > strings/0x409/product
+		echo "$product_string" > /config/usb_gadget/g1/strings/0x409/product
 		setprop sys.usb.configfs 1
-		cd /
 	fi
 
 	if [ -d /sys/class/android_usb/android0 ]
@@ -122,39 +113,27 @@ case "$1" in
 			echo 1 > /sys/devices/virtual/android_usb/android0/f_rndis_qc/max_pkt_per_xfer
 			echo 3 > /sys/module/dwc3/parameters/bulk_ep_xfer_timeout_ms
 			;;
+		*8909* )
+			wait_for_data_mount
+			ln -fs /sbin/usb/compositions/9091 /data/usb/boot_hsusb_composition
+			;;
 		*8916* )
-			echo 9091 > /etc/usb/boot_hsusb_comp
+			ln -fs /sbin/usb/compositions/9091 /data/usb/boot_hsusb_composition
                         ;;
 		*9640* )
 			echo 16384 > /sys/module/g_android/parameters/rndis_dl_max_xfer_size
 			;;
 		*9650* )
 			echo 16384 > /sys/module/g_android/parameters/gsi_in_rndis_aggr_size
-			if [ -e /dev/mhi_ctrl ]; then
-				echo 901F > /etc/usb/boot_hsusb_comp
-			fi
 			;;
 		*sdx20* )
 			echo Y > /sys/module/libcomposite/parameters/enable_l1_for_hs
 			echo Y > /sys/module/dwc3/parameters/enable_dwc3_u1u2
-			if [ -e /dev/mhi_ctrl ]; then
-				echo 901F > /etc/usb/boot_hsusb_comp
-			fi
 			;;
-		*sdxpoorwills* )
-			if [ -e /dev/mhi_ctrl ]; then
-				echo 901F > /etc/usb/boot_hsusb_comp
-			fi
-			;;
-		*8909* | *8053* | *8017* | *qcs605* | *qcs40x* | *sm8150* )
-			echo 901D > /etc/usb/boot_hsusb_comp
+		*8053* | *8017* )
+			wait_for_data_mount
+			ln -fs /sbin/usb/compositions/901D /data/usb/boot_hsusb_composition
 		        ;;
-	esac
-
-	case `source /sbin/usb/target` in
-		*sm8150* )
-			echo peripheral > /sys/bus/platform/devices/a600000.ssusb/mode
-			;;
 	esac
 
 	# enable debug message
@@ -173,8 +152,7 @@ case "$1" in
 	# boot hsic composition:
 	if [ -d /sys/class/android_usb/android1 ]
 	then
-		pid=`cat /etc/usb/boot_hsic_comp`
-		/sbin/usb/compositions/$pid y
+		/data/usb/boot_hsic_composition y
 		# let hsic compostion script run before starting hsusb
 		sleep 1
 	fi
@@ -182,8 +160,7 @@ case "$1" in
 	# boot hsusb composition:
 	if [ -d /sys/class/android_usb/android0 ]
 	then
-		pid=`cat /etc/usb/boot_hsusb_comp`
-		/sbin/usb/compositions/$pid n
+		/data/usb/boot_hsusb_composition n
 
 		if [ "$SOFTAP_W_DUN" == "Y" ]
 		then
@@ -206,4 +183,3 @@ case "$1" in
         exit 1
         ;;
 esac
-

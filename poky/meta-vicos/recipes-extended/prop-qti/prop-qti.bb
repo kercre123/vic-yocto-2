@@ -4,8 +4,6 @@ SECTION = "examples"
 PR = "r1"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5=0835ade698e0bcf8506ecda2f7b4f302"
-#LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
-#                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
 SRC_URI = "file://qtiroot \
 	   file://initscripts \
@@ -13,24 +11,17 @@ SRC_URI = "file://qtiroot \
 	   file://other"
 
 S = "${WORKDIR}"
-#S = "${WORKDIR}/sources"
-#UNPACKDIR = "${S}"
 
 
 do_install () {
-		#install -m 0644 ${WORKDIR}/wcnss_wlan.service -D ${D}/etc/systemd/system/wcnss_wlan.service
-	        #install -d ${D}/etc/systemd/system/multi-user.target.wants/
-		#ln -sf /etc/systemd/system/wcnss_wlan.service \
-		#${D}/etc/systemd/system/multi-user.target.wa
 	install -d ${D}/etc/initscripts
 	install -d ${D}/lib/systemd/system/multi-user.target.wants
+	install -d ${D}/lib/systemd/system/local-fs.target.requires
 	install -d ${D}/usr/bin
 	install -d ${D}/usr/sbin
 	install -d ${D}/data/misc/camera
 	install -d ${D}/data/misc/bluetooth
 	cp -r ${S}/other/export-gpio ${D}/usr/sbin/export-gpio
-	cp -r ${S}/other/getprop ${D}/usr/bin/getprop
-	cp -r ${S}/other/setprop ${D}/usr/bin/setprop
 	cp -r ${S}/initscripts/* ${D}/etc/initscripts/
 	cp -r ${S}/qtiroot ${D}/usr/qtiroot
 	ln -sf /usr/qtiroot/qtirun ${D}/usr/bin/qtirun
@@ -38,17 +29,19 @@ do_install () {
 	ln -sf /lib/systemd/system/anki-audio-init.service ${D}/lib/systemd/system/multi-user.target.wants/
 	# this is now installed by the update-engine recipe
 	#ln -sf /lib/systemd/system/boot-successful.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/logd.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/mdsprpcd.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/mm-anki-camera.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/mm-qcamera-daemon.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/qtid.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/qti_system_daemon.service ${D}/lib/systemd/system/multi-user.target.wants/
-        ln -sf /lib/systemd/system/rmt_storage.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/logd.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/mdsprpcd.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/mm-anki-camera.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/mm-qcamera-daemon.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/qtid.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/qti_system_daemon.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/rmt_storage.service ${D}/lib/systemd/system/multi-user.target.wants/
 	ln -sf /lib/systemd/system/init_audio.service ${D}/lib/systemd/system/multi-user.target.wants/
 	ln -sf /lib/systemd/system/ankibluetoothd.service ${D}/lib/systemd/system/multi-user.target.wants/
 	ln -sf /lib/systemd/system/btproperty.service ${D}/lib/systemd/system/multi-user.target.wants/
 	ln -sf /lib/systemd/system/leprop.service ${D}/lib/systemd/system/multi-user.target.wants/
+	ln -sf /lib/systemd/system/mount-data.service ${D}/lib/systemd/system/local-fs.target.requires/
+	ln -sf /lib/systemd/system/setup-qtiroot.service ${D}/lib/systemd/system/multi-user.target.wants/
 }
 
 FILES:${PN} = "/usr/qtiroot \

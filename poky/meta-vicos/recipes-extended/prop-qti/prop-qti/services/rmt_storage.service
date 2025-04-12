@@ -1,10 +1,8 @@
 [Unit]
 Description= Remote Storage Service
 SourcePath=/usr/qtiroot/sbin/rmt_storage
-#Wants=systemd-udevd.service
-#After=systemd-udevd.service
-#Requires=init_audio.service
-#Before=init_sys_mss.service
+After=setup-qtiroot.service
+Requires=setup-qtiroot.service
 
 [Service]
 Restart=always

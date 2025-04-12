@@ -4,8 +4,8 @@ DEPENDS = "base-passwd"
 SRC_URI:append = "file://fstab \
                   file://profile"
 
-dirs755:append = " /media/cf /media/net /media/ram \
-            /media/union /media/realroot /media/hdd /media/mmc1"
+#dirs755:append = " /media/cf /media/net /media/ram \
+#            /media/union /media/realroot /media/hdd /media/mmc1"
 
 # userdata mount point is present by default in all machines.
 # TODO: Add this path to MACHINE_MNT_POINTS in machine conf.
@@ -15,7 +15,7 @@ dirs755:append = " ${MACHINE_MNT_POINTS}"
 
 # /systemrw partition is needed only when system is RO.
 # Otherwise files can be directly written to / itself.
-dirs755:append = " ${@bb.utils.contains('DISTRO_FEATURES','ro-rootfs','/systemrw','',d)}"
+#dirs755:append = " ${@bb.utils.contains('DISTRO_FEATURES','ro-rootfs','/systemrw','',d)}"
 dirs755:append_apq8009 = "/firmware /persist /factory"
 
 # Explicitly remove sepolicy entries from fstab when selinux is not present.
@@ -32,10 +32,10 @@ do_install:append() {
     # kercre123 - install custom profile
     install -m 0755 ${WORKDIR}/profile ${D}${sysconfdir}/profile
 
-    # kercre123 - make sure systemd's resolved service is discoverable
-    install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
-    ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/dbus-org.freedesktop.resolve1.service
-    ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/systemd-resolved.service
+    # kercre123 - we use connman
+    #install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
+    #ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/dbus-org.freedesktop.resolve1.service
+    #ln -s /lib/systemd/system/systemd-resolved.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/systemd-resolved.service
 }
 
 do_install:append_sdm845 () {

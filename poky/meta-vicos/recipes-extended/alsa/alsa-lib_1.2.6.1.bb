@@ -15,7 +15,7 @@ SRC_URI[sha256sum] = "ad582993d52cdb5fb159a0beab60a6ac57eab0cc1bdf85dc4db6d6197f
 inherit autotools pkgconfig
 
 # @kercre123
-# the kernel and ALSA have to compiled with the same compiler
+# we are compiling ALSA and the kernel with the same (old) compiler.
 # in Kirkstone (GCC 10) it worked without issue, but some change was made in GCC 13
 # (what Scarthgap uses) which makes it not work with our GCC-4.9-compiled kernel
 

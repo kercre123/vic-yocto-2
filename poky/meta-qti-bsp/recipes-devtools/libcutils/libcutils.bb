@@ -20,9 +20,8 @@ S = "${WORKDIR}/libcutils"
 EXTRA_OECONF += " --with-core-includes=${WORKSPACE}/system/core/include"
 EXTRA_OECONF += " --with-host-os=${HOST_OS}"
 EXTRA_OECONF += " --disable-static"
-
-EXTRA_OECONF:append_msm = " --enable-leproperties"
-EXTRA_OECONF:append_msm = " LE_PROPERTIES_ENABLED=true"
+#EXTRA_OECONF += " --enable-leproperties"
+EXTRA_OECONF += " LE_PROPERTIES_ENABLED=true"
 
 FILES:${PN}-dbg    = "${libdir}/.debug/libcutils.*"
 FILES:${PN}        = "${libdir}/libcutils.so.* ${libdir}/pkgconfig/*"

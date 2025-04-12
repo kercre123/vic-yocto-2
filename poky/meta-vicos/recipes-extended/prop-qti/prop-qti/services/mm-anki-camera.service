@@ -6,13 +6,10 @@ After=mm-qcamera-daemon.service
 
 [Service]
 Restart=always
-#ExecStartPre=/etc/initscripts/init_cam
-#ExecStartPre=/sbin/export-gpio 94
-#ExecStartPre=/sbin/export-gpio 0
-ExecStartPre=/bin/sleep 1
-ExecStart=/usr/bin/qtirun /usr/bin/mm-anki-camera -r 1 $MM_ANKI_CAMERA_OPTS
-#Group=camera
+ExecStart=/usr/bin/qtirun /usr/bin/mm-anki-camera $MM_ANKI_CAMERA_OPTS
+Group=camera
 UMask=0007
+AmbientCapabilities=CAP_WAKE_ALARM CAP_SYS_CHROOT
 
 [Install]
 WantedBy=multi-user.target

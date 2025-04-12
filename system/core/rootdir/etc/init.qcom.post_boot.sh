@@ -638,16 +638,16 @@ esac
 # disable msm thermal driver
 echo 0 > /sys/module/msm_thermal/core_control/enabled
 echo N > /sys/module/msm_thermal/parameters/enabled
-sleep 0.1
+#sleep 0.1
 
-echo 1267200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-echo disabled > /sys/kernel/debug/msm_otg/bus_voting  # This prevents USB from pinning RAM to 400MHz
-echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
-echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/mas
-echo 512 > /sys/kernel/debug/msm-bus-dbg/shell-client/slv
-echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/ab
-echo active clk2 0 1 max 800000 > /sys/kernel/debug/rpm_send_msg/message # Max RAM freq in KHz = 400MHz
-echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
+#echo 1267200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+#echo disabled > /sys/kernel/debug/msm_otg/bus_voting  # This prevents USB from pinning RAM to 400MHz
+#echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
+#echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/mas
+#echo 512 > /sys/kernel/debug/msm-bus-dbg/shell-client/slv
+#echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/ab
+#echo active clk2 0 1 max 800000 > /sys/kernel/debug/rpm_send_msg/message # Max RAM freq in KHz = 400MHz
+#echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
 
 
 echo "init_qcom_post_boot completed"

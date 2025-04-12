@@ -14,8 +14,12 @@ do_compile () {
 }
 
 do_install() {
+  # idk where to put this, but we need a mount point for factory
+  install -d ${D}/factory
+
   install -d ${D}/usr/bin
   install -m 0755 ${WORKDIR}/emr-cat ${D}/usr/bin/
 }
 
-FILES:${PN} += "/usr/bin/emr-cat"
+FILES:${PN} += "/usr/bin/emr-cat \
+                /factory"

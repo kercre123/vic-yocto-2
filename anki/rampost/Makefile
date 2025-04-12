@@ -16,7 +16,6 @@ CFLAGS = \
 	-Wl,-z,noexecstack \
 	-Wl,-z,nocopyreloc \
 	-pie \
-	$(CFLAGS) \
 	-fPIE
 
 BINARIES = rampost animfail

@@ -6,7 +6,8 @@
 [Unit]
 Description=mdsprpc Service
 SourcePath=/usr/qtiroot/usr/bin/mdsprpcd
-#After=rmt_storage.service
+After=setup-qtiroot.service
+Requires=setup-qtiroot.service
 
 [Service]
 Restart=yes

@@ -15,11 +15,11 @@ S = "${WORKDIR}/mdm-init/"
 do_install:append(){
   if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
       install -d ${D}/etc/initscripts
-      cp ${D}/etc/init.d/wlan ${D}/etc/initscripts/wlan
-      install -d ${D}/etc/systemd/system/
-      install -d ${D}/etc/systemd/system/multi-user.target.wants/
-      install -m 0644 ${WORKDIR}/wlan_daemon.service -D ${D}/etc/systemd/system/wlan_daemon.service
-      ln -sf /etc/systemd/system/wlan_daemon.service ${D}/etc/systemd/system/multi-user.target.wants/wlan_daemon.service
+#      cp ${D}/etc/init.d/wlan ${D}/etc/initscripts/wlan
+#      install -d ${D}/etc/systemd/system/
+#      install -d ${D}/etc/systemd/system/multi-user.target.wants/
+#      install -m 0644 ${WORKDIR}/wlan_daemon.service -D ${D}/etc/systemd/system/wlan_daemon.service
+#      ln -sf /etc/systemd/system/wlan_daemon.service ${D}/etc/systemd/system/multi-user.target.wants/wlan_daemon.service
 
       if ${@bb.utils.contains('COMBINED_FEATURES', 'qti-wifi', 'true', 'false', d)}; then
           mkdir -p ${D}/lib/firmware/wlan/qca_cld/wlan_debug

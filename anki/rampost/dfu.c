@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <ctype.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "messages.h"
 #include "spine_hal.h"
@@ -266,11 +267,19 @@ bool dfu_validate_image(void)
 
 RampostErr dfu_sequence(const char* dfu_file, bool force_update)
 {
-  const uint8_t* installed_version = dfu_get_version();
-  if (!installed_version) {
-    return err_DFU_NO_VERSION;
+  const uint8_t* installed_version = NULL;
+  int tries = 0;
+  // try 5 times, accounting for prototype bodyboards
+  while (tries < 5 && !installed_version) {
+      installed_version = dfu_get_version();
+      if (!installed_version) {
+          usleep(100000);
+          ++tries;
+      }
   }
-
+  if (!installed_version) {
+      return err_DFU_NO_VERSION;
+  }
   const uint8_t* desired_version = dfu_open_binary_file(dfu_file, &gImgFilep);
 
   if (!force_update && CheckVersion(desired_version, installed_version) >= version_OK) {

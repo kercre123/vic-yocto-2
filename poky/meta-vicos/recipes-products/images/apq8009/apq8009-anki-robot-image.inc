@@ -36,5 +36,7 @@ IMAGE_INSTALL += "liburcu"
 
 IMAGE_INSTALL += "syslog-ng"
 IMAGE_INSTALL += "logrotate"
+IMAGE_INSTALL += "connman"
+IMAGE_INSTALL += "connman-client"
 #IMAGE_INSTALL += "kernel-module-ramoops"
 #IMAGE_INSTALL += "${@bb.utils.contains('DISTRO_FEATURES','avahi', 'avahi-daemon', '', d)}"

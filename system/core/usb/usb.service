@@ -29,8 +29,8 @@
 [Unit]
 SourcePath=/etc/initscripts/usb
 Description=usb Service
-#After=systemrw.mount leprop.service
-#Requires=systemrw-adb_devid.service systemrw-boot_hsusb_comp.service
+Wants=leprop.service
+After=leprop.service
 
 [Service]
 Type=forking
