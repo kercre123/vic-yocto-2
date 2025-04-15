@@ -94,14 +94,16 @@ function build-8009-robot-perf-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-perf
   export VARIANT=perf
-  #export PRODUCT=robot
+  export PRODUCT=robot
   cdbitbake machine-robot-image
 }
 
 function build-8009-robot-oskr-image() {
   unset_bb_env
   export MACHINE=apq8009-robot
-  export VARIANT=debug
+  export DISTRO=msm-perf
+  export VARIANT=perf
+  export PRODUCT=robot
   export OSKR=1
   cdbitbake machine-robot-image
 }
@@ -111,7 +113,7 @@ function build-8009-robot-user-image() {
   export MACHINE=apq8009-robot
   export DISTRO=msm-user
   export VARIANT=perf
-  #export PRODUCT=robot
+  export PRODUCT=robot
   cdbitbake machine-robot-image
 }
 
@@ -190,6 +192,32 @@ function build-victor-robot-beta-image() {
   build-8009-robot-beta-image
 }
 
+function build-oskr() {
+  build-victor-robot-oskr-image
+}
+
+function build-dev() {
+  build-victor-robot-perf-image
+}
+
+function clean-oskr() {
+  unset_bb_env
+  export MACHINE=apq8009-robot
+  export DISTRO=msm-perf
+  export VARIANT=perf
+  export PRODUCT=robot
+  export OSKR=1
+  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image
+}
+
+function clean-dev() {
+  unset_bb_env
+  export MACHINE=apq8009-robot
+  export DISTRO=msm-perf
+  export VARIANT=perf
+  export PRODUCT=robot
+  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image
+}
 
 # Utility commands
 buildclean() {
@@ -205,6 +233,7 @@ buildclean() {
 
   set +x
 }
+
 
 # Lists only those build commands that are:
 #   * prefixed with function keyword
@@ -257,6 +286,6 @@ export TEMPLATECONF="${WS}/poky/meta-qti-bsp/conf/templates/msm"
 # (BBLAYERS is explicitly blocked from this within OE-Core itself, though...)
 # oe-init-build-env calls oe-buildenv-internal which sets
 # BB_ENV_EXTRAWHITE, append our vars to the list
-export BB_ENV_PASSTHROUGH_ADDITIONS="${BB_ENV_PASSTHROUGH_ADDITIONS} DL_DIR PRODUCT VARIANT FACTORY DEV OSKR QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED"
+export BB_ENV_PASSTHROUGH_ADDITIONS="${BB_ENV_PASSTHROUGH_ADDITIONS} DL_DIR PRODUCT VARIANT FACTORY DEV OSKR QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED ANKI_BUILD_VERSION"
 
 list-build-commands
