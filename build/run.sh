@@ -9,10 +9,27 @@ if [[ ! -d bootable ]]; then
 	fi
 fi
 
+./build/deps.sh
 
-#docker build --build-arg UID=$(id -u $USER) --build-arg GID=$(id -g $USER) -t vic-yocto-builder build/
+DIRPATH="$(pwd)"
+
+if [[ $1 == "oskr" ]]; then
+	echo "building OSKRKR!!!!!"
+	OSKRQ="oskr-"
+	MAKECOMMAND="export BOOT_IMAGE_SIGNING_PASSWORD=\"annul-burl-zq-flew-hack-owe-phil-triton-pk\" && make oskrsign"
+else
+	MAKECOMMAND="make devsign"
+	echo "building DEV!!!!!"
+fi
+
+docker build --build-arg DIR_PATH="${DIRPATH}" --build-arg USER_NAME=$(whoami) --build-arg UID=$(id -u $USER) --build-arg GID=$(id -g $USER) -t vic-yocto-builder-2 build/
 
 docker run -it \
-    -v "$(pwd):/home/build/vic-yocto-2" \
-    -v "$(pwd)/anki-deps:/home/build/.anki" \
-    vic-yocto-builder bash -c "cd ~/vic-yocto-2/poky && source build/conf/set_bb_env.sh && VARIANT=debug && MACHINE=apq8009-robot && $@"
+    -v $(pwd)/anki-deps:${HOME}/.anki \
+    -v $(pwd):$(pwd) \
+    vic-yocto-builder-2 bash -c "cd $(pwd)/poky && source build/conf/set_bb_env.sh && MACHINE=apq8009-robot VARIANT=debug $@"
+
+#cd ota
+#rm -rf ../_build/*.img ../_build/*.stats ../_build/*.ini ../_build/*.env
+#${MAKECOMMAND}
+#make

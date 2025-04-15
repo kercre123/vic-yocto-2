@@ -28,8 +28,8 @@ PACKAGECONFIG[manpages] = "--enable-xmlto, --disable-xmlto, xmlto-native docbook
 SRC_URI = "https://www.alsa-project.org/files/pub/utils/alsa-utils-${PV}.tar.bz2"
 SRC_URI[sha256sum] = "6a1efd8a1f1d9d38e489633eaec1fffa5c315663b316cab804be486887e6145d"
 
-CC = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-gcc --sysroot=${WORKSPACE}/poky/build/tmp-glibc/work/armv7a-neon-oe-linux-gnueabi/${PN}/${PV}/recipe-sysroot"
-CXX = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-g++ --sysroot=${WORKSPACE}/poky/build/tmp-glibc/work/armv7a-neon-oe-linux-gnueabi/${PN}/${PV}/recipe-sysroot"
+CC = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-gcc --sysroot=${WORKSPACE}/poky/build/tmp-glibc/work/armv7a-neon-vfpv4-oe-linux-gnueabi/${PN}/${PV}/recipe-sysroot"
+CXX = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-g++ --sysroot=${WORKSPACE}/poky/build/tmp-glibc/work/armv7a-neon-vfpv4-oe-linux-gnueabi/${PN}/${PV}/recipe-sysroot"
 LD = "${WORKSPACE}/old-toolchain/arm/bin/arm-linux-gnueabi-ld"
 
 do_configure:prepend () {

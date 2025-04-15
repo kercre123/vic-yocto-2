@@ -14,11 +14,8 @@ SRC_URI = " \
       file://main.cpp \
       file://boot-successful.service \
       file://boot-successful.sh \
+      file://sysswitch \
       "
-
-#do_compile () {
-#  ${CC} ${WORKDIR}/gpt-utils.cpp ${WORKDIR}/bootctl.cpp ${WORKDIR}/main.cpp -lstdc++ -lz -llog -lbsd -o ${WORKDIR}/bootctl
-#}
 
 do_compile () {
   ${CXX} ${WORKDIR}/gpt-utils.cpp ${WORKDIR}/bootctl.cpp ${WORKDIR}/main.cpp \
@@ -31,6 +28,8 @@ do_compile () {
 do_install() {
   install -d ${D}/usr/bin
   install -m 0700 ${WORKDIR}/bootctl ${D}/usr/bin/bootctl-anki
+
+  install -m 0755 ${WORKDIR}/sysswitch ${D}/usr/bin/sysswitch
 
   install -d ${D}${sysconfdir}/initscripts
   install -m 0755 ${WORKDIR}/boot-successful.sh ${D}${sysconfdir}/initscripts/boot-successful
@@ -45,3 +44,5 @@ do_install() {
 FILES:${PN} += "/usr/bin"
 FILES:${PN} += "/etc/systemd/system"
 FILES:${PN} += "/etc/initscripts"
+
+RDEPENDS:${PN} += "bash"

@@ -102,11 +102,6 @@ do_clean:append() {
 do_compile[pseudo] = "0"
 
 run_victor() {
-  export PATH=/usr/bin:/bin:/usr/sbin:/sbin
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  pyenv global 3.10.16 2.7.18
   export -n CCACHE_DISABLE
   export CCACHE_DIR="/home/build/.ccache"
   env \
@@ -173,7 +168,7 @@ run_victor() {
     -u systemd_unitdir \
     -u systemd_user_unitdir \
     -u userfsdatadir \
-    -i PYENV_ROOT="$HOME/.pyenv" PATH=$PYENV_ROOT/bin:$HOME/.pyenv/shims:/usr/bin:/bin:/usr/sbin:/sbin HOME=$HOME \
+    -i PATH=/usr/bin:/bin:/usr/sbin:/sbin HOME=$HOME \
     "$@"
 }
 

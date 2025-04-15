@@ -5,13 +5,42 @@ if [[ ! -d poky ]]; then
 		cd ..
 	else
 		echo "run this in the correct directory"
+		exit 1
 	fi
 fi
 
-if [[ ! -d old-toolchain/arm ]]; then
+OD="$(pwd)"
+
+# if hf compiler, we want to replace with armel
+if [[ ! -d old-toolchain/arm ]] || [[ -d old-toolchain/arm/arm-linux-gnueabihf ]]; then
+	echo "as root because this was originally done in a docker container, so perms are messed up"
+	sudo rm -rf old-toolchain
 	mkdir -p old-toolchain
 	cd old-toolchain
-	wget https://github.com/kercre123/vic-yocto-2/releases/download/0.0.1/arm-4.9.3.tar.gz
-	tar -zxf arm-4.9.3.tar.gz
-	rm arm-4.9.3.tar.gz
+	wget -q --show-progress https://github.com/kercre123/vic-yocto-2/releases/download/0.0.1/armel-4.9.3.tar.gz
+	tar -zxf armel-4.9.3.tar.gz
+	rm armel-4.9.3.tar.gz
 fi
+
+cd "$OD"
+
+if [[ ! -d anki-deps/vicos-sdk/dist/4.0.0-r05/prebuilt ]]; then
+	sudo rm -rf anki-deps
+	mkdir -p anki-deps/vicos-sdk/dist/4.0.0-r05
+	cd anki-deps/vicos-sdk/dist/4.0.0-r05
+	wget -q --show-progress https://github.com/kercre123/anki-deps/releases/download/4.0.0/vicos-sdk_4.0.0-r05_x86_64-arm-oe-linux-gnueabi.tar.gz
+	tar -zxvf vicos-sdk_4.0.0-r05_x86_64-arm-oe-linux-gnueabi.tar.gz
+	rm -f vicos-sdk_4.0.0-r05_x86_64-arm-oe-linux-gnueabi.tar.gz
+fi
+
+cd "$OD"
+
+if [[ ! -d anki-deps/wwise ]]; then
+	mkdir -p anki-deps/wwise/versions/2017.2.7_a
+	cd anki-deps/wwise/versions/2017.2.7_a
+	wget -q --show-progress https://github.com/kercre123/anki-deps/releases/download/1.1.0-r04/wwise-2017.2.7_a.tar.gz
+	tar -zxvf wwise-2017.2.7_a.tar.gz
+	rm -f wwise-2017.2.7_a.tar.gz
+fi
+
+cd "$OD"

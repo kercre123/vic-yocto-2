@@ -30,6 +30,10 @@ IMAGE_INSTALL += "vic-switchboard"
 IMAGE_INSTALL += "vic-webserver"
 IMAGE_INSTALL += "vic-bootanim"
 IMAGE_INSTALL += "victor"
+
+IMAGE_INSTALL += "avahi-daemon"
+IMAGE_INSTALL += "neofetch"
+
 #
 # Other stuff
 # IMAGE_INSTALL += "bspatch"

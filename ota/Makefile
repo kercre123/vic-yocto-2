@@ -1,4 +1,4 @@
-IMG_DIR ?= ../poky/build/tmp-glibc/deploy/images/apq8009-robot
+IMG_DIR ?= ../poky/build/tmp-glibc/deploy/images/apq8009-robot-
 OS_VERSION_FILE=../poky/build/tmp-glibc/work/apq8009_robot-oe-linux-gnueabi/machine-robot-image/1.0/rootfs/etc/os-version
 BUILD=../_build
 BOOT_STEM=apq8009-robot-boot
@@ -72,6 +72,9 @@ $(BUILD)/%.img: $(IMG_DIR)/%.img
 %.img.gz.enc: %.img.gz
 	openssl aes-256-ctr -pass $(OTAPASS) -md md5 -in $< -out $@
 
+$(IMG_DIR)/apq8009-robot-sysfs.ext4:
+	img2simg $(IMG_DIR)/apq8009-robot-raw-sysfs.ext4 $@
+
 $(BUILD)/%.img: $(IMG_DIR)/%.ext4
 	simg2img $< $@
 
@@ -91,7 +94,7 @@ orange_boot_img: $(BUILD)
 $(MANIFEST).ini: $(BUILD) $(BOOT_STATS) $(SYS_STATS)
 	echo "[META]"                                > $@
 	echo "manifest_version=$(MANIFEST_VERSION)" >> $@
-	echo "update_version=3.0.0.0oskr"     >> $@
+	echo "update_version=$(UPDATE_VERSION)"     >> $@
 	echo "ankidev=$(ANKIDEV)"                   >> $@
 	echo "num_images=2"                         >> $@
 	echo "reboot_after_install=$(REBOOT_AFTER_INSTALL)" >> $@
