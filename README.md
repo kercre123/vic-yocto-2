@@ -24,7 +24,7 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 Make sure you have Docker installed, and configured so a regular user can use it.
 
 ```
-git clone https://github.com/kercre123/vic-yocto-2
+git clone https://github.com/kercre123/vic-yocto-2 --recurse-submodules --shallow-submodules --depth=1
 cd vic-yocto-2
 ./build/build.sh -bt <dev/oskr> -bp <boot-passwd> -v <build-increment>
 ```
