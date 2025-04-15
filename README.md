@@ -1,8 +1,3 @@
-# DO NOT USE THIS YET
-# DO NOT USE THIS YET
-# DO NOT USE THIS YET
-# DO NOT USE THIS YET
-
 # vic-yocto-2
 
 Vector's original OS is built with an old version of Yocto/OpenEmbedded. This project aims to upgrade that.
@@ -16,56 +11,41 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 
 ## Status
 
--	Kernel: 3.18.66
+-	Kernel: 3.18.68-scarthgap
+	-	Tiny little modifications required for new sysfs
 -	glibc: 2.39
--	arch: armhf
+-	arch: armel
 -	yocto: scarthgap (5.0)
 
-## Notes
-
--	All of the meta-qti-* stuff is open-source, but there is no publicly available documentation for which branches go with which yocto version.
-	-	The branches I have chosen are in ./BRANCHES.txt
--	WLAN is implemented and will connect on bootup. /data/misc/wifi/wpa_supplicant.conf must be modified to include your WiFi credentials (install.sh does automatically).
--	A test program will launch at startup. Use one of the wheels and the button to navigate it.
-
 ## Build
+
+### no signing
 
 Make sure you have Docker installed, and configured so a regular user can use it.
 
 ```
 git clone https://github.com/kercre123/vic-yocto-2
 cd vic-yocto-2
-./build/build.sh
+./build/build.sh -bt <dev/oskr> -bp <boot-passwd> -v <build-increment>
 ```
 
-Result will be in poky/build/tmp-glibc/deploy/images/
+### with signing
 
-## Install
-
-An install script is included. This patches the image to include the kernel modules corresponding to the boot partition of the current slot in your bot, and adds WiFi credentials for automatic connection.
-
-It is recommended to have WireOS installed.
+If you are privileged enough to have the passwords:
 
 ```
-# should not be run in a docker container
-cd ../install-image
-# replace vectorip with vector's ip address, /path/to/sshkey with the path to his ssh key, ssid with your network name, password with your network password
-sudo ./install.sh vectorip /path/to/sshkey "ssid" "password"
+./build/build.sh -bt <dev/oskr> -s -op <OTA-pw> -bp <boot-passwd> -v <build-increment>
 ```
 
-## Todo:
+### where is my OTA?
 
-- Get `victor` in there
-- Get Bluetooth working
-- Get userdata mounting
-- Get prod (dm-verity) builds working??
+`./_build/vicos-3.0.0.#oskr/d.ota`
 
-He should eventually boot up to a screen showing "booted!" and SSH should be available (with [this key](http://wire.my.to:81/ssh_root_key)).
+## What is working
 
-## Resources
+- almost everything!
+- we have victor building, all hardware components working, userdata mounting, clear user data working, connman working, avahi-daemon working
 
--	Qualcomm LE (linux embedded) repo: https://git.codelinaro.org/clo/le
--	Migration guide for thud: https://docs.yoctoproject.org/migration-guides/migration-2.6.html
--	Migration guide for sumo (includes new function definitions): https://docs.yoctoproject.org/migration-guides/migration-2.5.html
--	Original Vector tarball: https://web.archive.org/web/20221102004123if_/https://anki-vic-pubfiles.anki.com/license/prod/1.0.0/licences/OStarball.v160.tgz
--	Original Vector tarball (fixed so it builds): https://keriganc.com/opensource.tar.gz
+## What isn't working
+
+- delta updates
