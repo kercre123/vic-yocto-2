@@ -6,11 +6,11 @@ PR = "r3"
 
 FILESPATH =+ "${WORKSPACE}:"
 # Provide a baseline
-SRC_URI = "file://mdm-init/"
+SRC_URI = "file://mdm-init"
 SRC_URI += "file://wlan_daemon.service"
 
 # Update for each machine
-S = "${WORKDIR}/mdm-init/"
+S = "${WORKDIR}/mdm-init"
 
 # do_install:append(){
 #  if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
@@ -36,8 +36,8 @@ do_install:append() {
 
 
 #FILES:${PN} += "${userfsdatadir}/misc/wifi/*"
-FILES:${PN} += "${base_libdir}/firmware/wlan/qca_cld/*"
-FILES:${PN} += "${nonarch_base_libdir}/firmware/wlan/qca_cld/* ${sysconfdir}/init.d/* "
+FILES:${PN} += "${base_libdir}/firmware/wlan/qca_cld"
+FILES:${PN} += "${nonarch_base_libdir}/firmware/wlan/qca_cld ${sysconfdir}/init.d "
 
 BASEPRODUCT = "${@d.getVar('PRODUCT', False)}"
 

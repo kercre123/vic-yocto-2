@@ -57,7 +57,7 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-if [[ "$BOT_TYPE" != "oskr" && "$BOT_TYPE" != "dev" ]]; then
+if [[ "$BOT_TYPE" != "oskr" && "$BOT_TYPE" != "dev" && "$BOT_TYPE" != "prod" ]]; then
     usage "BOT_TYPE (-bt) should be 'oskr' or 'dev', got: $BOT_TYPE"
 fi
 
@@ -71,6 +71,10 @@ fi
 
 if [[ "$BOT_TYPE" == "oskr" ]]; then
     check_sign_oskr
+fi
+
+if [[ "$BOT_TYPE" == "prod" ]]; then
+    check_sign_prod
 fi
 
 if [[ ! $BUILD_INCREMENT =~ ^-?[0000-9999]+$ ]]; then
@@ -93,6 +97,11 @@ if [[ $BOT_TYPE == "oskr" ]]; then
     export BOOT_IMAGE_SIGNING_PASSWORD="${BOOT_PASSWORD}"
 	YOCTO_BUILD_COMMAND="clean-oskr && build-oskr"
 	BOOT_MAKE_COMMAND="make oskrsign"
+elif [[ $BOT_TYPE == "prod" ]]; then
+	echo "Building a prod OTA"
+    export BOOT_IMAGE_SIGNING_PASSWORD="${BOOT_PASSWORD}"
+	YOCTO_BUILD_COMMAND="clean-prod && build-prod"
+	BOOT_MAKE_COMMAND="make prodsign"
 else
     echo "Building a dev OTA"
 	YOCTO_BUILD_COMMAND="clean-dev && build-dev"

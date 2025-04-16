@@ -200,6 +200,10 @@ function build-dev() {
   build-victor-robot-perf-image
 }
 
+function build-prod() {
+  build-victor-robot-user-image
+}
+
 function clean-oskr() {
   unset_bb_env
   export MACHINE=apq8009-robot
@@ -207,7 +211,7 @@ function clean-oskr() {
   export VARIANT=perf
   export PRODUCT=robot
   export OSKR=1
-  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image
+  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image system-conf
 }
 
 function clean-dev() {
@@ -216,7 +220,16 @@ function clean-dev() {
   export DISTRO=msm-perf
   export VARIANT=perf
   export PRODUCT=robot
-  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image
+  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image system-conf
+}
+
+function clean-prod() {
+  unset_bb_env
+  export MACHINE=apq8009-robot
+  export DISTRO=msm-user
+  export VARIANT=perf
+  export PRODUCT=robot
+  cdbitbake -c cleanall victor core-image-anki-initramfs rampost anki-version machine-robot-image system-conf
 }
 
 # Utility commands

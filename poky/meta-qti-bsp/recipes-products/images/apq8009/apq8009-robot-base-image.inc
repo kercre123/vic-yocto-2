@@ -11,7 +11,7 @@ IMAGE_INSTALL += "start-scripts-userfs-reset"
 IMAGE_INSTALL += "chrony"
 IMAGE_INSTALL += "chronyc"
 
-IMAGE_INSTALL += "openssh"
+
 IMAGE_INSTALL += "${@oe.utils.conditional('PRODUCT','robot-rome', 'iw', '', d)}"
 IMAGE_INSTALL += "${@oe.utils.conditional('PRODUCT','robot-rome', 'libcap', '', d)}"
 IMAGE_INSTALL += "${@oe.utils.conditional('PRODUCT','robot-rome', 'attr', '', d)}"

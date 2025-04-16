@@ -22,8 +22,6 @@ IMAGE_INSTALL += "openssl-bin"
 IMAGE_INSTALL += "emr-cat"
 IMAGE_INSTALL += "wpa-supplicant"
 IMAGE_INSTALL += "prop-qti"
-IMAGE_INSTALL += "rsync"
-IMAGE_INSTALL += "htop"
 IMAGE_INSTALL += "update-engine"
 IMAGE_INSTALL += "bash"
 IMAGE_INSTALL += "python3"
@@ -31,6 +29,10 @@ IMAGE_INSTALL += "libgomp"
 
 IMAGE_INSTALL += "libunwind"
 IMAGE_INSTALL += "liburcu"
+
+# dev-only things
+IMAGE_INSTALL += "${@oe.utils.conditional('USER_BUILD', '1', '', 'rsync', d)}"
+IMAGE_INSTALL += "${@oe.utils.conditional('USER_BUILD', '1', '', 'htop', d)}"
 
 #IMAGE_INSTALL += "docker"
 
