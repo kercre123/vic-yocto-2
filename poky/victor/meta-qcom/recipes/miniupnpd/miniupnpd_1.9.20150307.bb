@@ -4,10 +4,10 @@ DESCRIPTION = "MiniUPnPd is a low memory daemon which acts as a\
 UPnP device, enabling seamless detection of other UPnP devices/control points."
 HOMEPAGE = "http://miniupnp.free.fr/"
 BUGTRACKER = "http://miniupnp.tuxfamily.org/forum/viewforum.php?f=2"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 PRIORITY = "optional"
 DEPENDS = "conntrack-tools"
-LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD;md5=3775480a712fc46a69647678acb234cb"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD-3-Clause;md5=550794465ba0ec5312d6919e203a55f9"
 
 # Package Revision (update whenever recipe is changed)
 PR = "r7"

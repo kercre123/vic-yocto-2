@@ -5,7 +5,7 @@ SOC_FAMILY ?= "msm8909"
 include conf/machine/include/soc-family.inc
 
 # Pull in security flags
-#require ${COREBASE}/meta-qcom/conf/distro/include/security_flags.inc
+#require ${COREBASE}/../victor/meta-qcom/conf/distro/include/security_flags.inc
 
 DEFAULTTUNE ?= "armv7a-neon-vfpv4"
 

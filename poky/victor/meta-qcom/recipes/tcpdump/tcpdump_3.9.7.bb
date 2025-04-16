@@ -1,6 +1,6 @@
 DESCRIPTION = "A sophisticated network protocol analyzer"
 HOMEPAGE = "http://www.tcpdump.org/"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 SECTION = "console/network"
 PRIORITY = "optional"
 DEPENDS = "libpcap"

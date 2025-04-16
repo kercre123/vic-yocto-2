@@ -1,7 +1,7 @@
 DESCRIPTION = "Initialize scripts for initramfs"
 
 LICENSE = "BSD-3-Clause-Clear"
-LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti-bsp/files/common-licenses/\
+LIC_FILES_CHKSUM = "file://${COREBASE}/../victor/meta-qcom/files/common-licenses/\
 ${LICENSE};md5=48b43ba58d0f8e9ef3704313a46b7a43"
 
 RDEPENDS:${PN} += " busybox"

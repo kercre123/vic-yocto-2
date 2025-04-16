@@ -1,8 +1,8 @@
 DESCRIPTION = "Backlight scripts"
 HOMEPAGE = "http://codeaurora.org"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/\
-${LICENSE};md5=3775480a712fc46a69647678acb234cb"
+${LICENSE};md5=550794465ba0ec5312d6919e203a55f9"
 
 SRC_URI +="file://backlight"
 

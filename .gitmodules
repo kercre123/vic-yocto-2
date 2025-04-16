@@ -2,3 +2,7 @@
 	path = anki/victor
 	url = https://github.com/kercre123/victor
 	branch = kirkstone
+[submodule "poky/poky"]
+	path = poky/poky
+	url = https://github.com/yoctoproject/poky
+	branch = scarthgap

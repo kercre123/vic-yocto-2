@@ -50,10 +50,10 @@ do_ramdisk_create() {
         cp ${IMAGE_ROOTFS}/lib/libresolv.so.2 lib/libresolv.so.2
         #cp ${IMAGE_ROOTFS}/lib/libcrypto.so.1.0.0 lib/libcrypto.so.1.0.0
         cp ${IMAGE_ROOTFS}/usr/lib/libstdc++.so.6 lib/libstdc++.so.6
-        cp ${COREBASE}/meta-qcom/recipes-core/busybox/files/fstab etc/
-        cp ${COREBASE}/meta-qcom/recipes-core/busybox/files/inittab etc/
-        cp ${COREBASE}/meta-qcom/recipes-core/busybox/files/profile etc/
-        cp ${COREBASE}/meta-qcom/recipes-core/busybox/files/rcS etc/init.d
+        cp ${COREBASE}/../victor/meta-qcom/recipes-core/busybox/files/fstab etc/
+        cp ${COREBASE}/../victor/meta-qcom/recipes-core/busybox/files/inittab etc/
+        cp ${COREBASE}/../victor/meta-qcom/recipes-core/busybox/files/profile etc/
+        cp ${COREBASE}/../victor/meta-qcom/recipes-core/busybox/files/rcS etc/init.d
         if ${@bb.utils.contains('IMAGE_DEV_MANAGER', 'mdev', 'true', 'false', d)}; then
             cp ${IMAGE_ROOTFS}/etc/init.d/mdev etc/init.d/
             cp ${IMAGE_ROOTFS}/etc/mdev.conf etc/

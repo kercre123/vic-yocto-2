@@ -1,50 +1,55 @@
-# generate the bblayers.conf file for the current build workspace
-# emitted to stdout for simplicity.
-
-import os, sys, fnmatch, re
+import os, sys, re
 from operator import itemgetter
 
 def getLayerPriority(layerConfPath):
-    # open the layer.conf and return the bbfile priority or default to 0
-    with open(layerConfPath, "r") as confFile:
-        for line in confFile:
-            fields = line.split()
-            if fields and re.match("BBFILE_PRIORITY", fields[0]):
-                return int(fields[2].strip("\""))
-    return 0  # default priority if not found
+    try:
+        with open(layerConfPath, "r") as confFile:
+            for line in confFile:
+                if line.strip().startswith("BBFILE_PRIORITY"):
+                    match = re.search(r"BBFILE_PRIORITY\s*\S*\s*=\s*\"?(\d+)\"?", line)
+                    if match:
+                        return int(match.group(1))
+    except Exception:
+        pass
+    return 0
 
-def getLayerPaths(target, fnexpr):
-    retList = []
-    for file in os.listdir(target):
-        if (fnmatch.fnmatch(file, fnexpr) and not
-            (fnmatch.fnmatch(file, "meta-skeleton") or
-             fnmatch.fnmatch(file, "meta-selftest") or
-             fnmatch.fnmatch(file, "meta-yocto") or
-             fnmatch.fnmatch(file, "meta-yocto-bsp"))):
-            layerPath = os.path.join(target, file)
-            layerConfPath = os.path.join(layerPath, "conf", "layer.conf")
-            if os.path.exists(layerConfPath):
-                retList.append((layerPath, getLayerPriority(layerConfPath)))
-            if fnmatch.fnmatch(file, "meta-qti-cv-prop"):
-                scve = os.path.join(layerPath, "scve")
-                fastcv = os.path.join(layerPath, "fastcv")
-                retList.append((scve, getLayerPriority(os.path.join(scve, "conf", "layer.conf"))))
-                retList.append((fastcv, getLayerPriority(os.path.join(fastcv, "conf", "layer.conf"))))
-    return sorted(retList, key=itemgetter(1), reverse=True)
+def findLayersRecursively(basePath):
+    layerList = []
+    skipNames = {"meta-skeleton", "meta-selftest", "meta-yocto", "meta-yocto-bsp"}
+    ignoreDirs = {"build", "bitbake", ".git", "scripts", "meta/lib", "templates", "tmp-glibc"}
+    validLayerPattern = re.compile(r"^meta([-_].+)?$")
+
+    for root, dirs, files in os.walk(basePath):
+        dirs[:] = [d for d in dirs if d not in ignoreDirs]
+        relparts = os.path.relpath(root, basePath).split(os.sep)
+        if any(part in ignoreDirs for part in relparts):
+            continue
+        if not any(validLayerPattern.match(part) for part in relparts):
+            continue
+
+        if "layer.conf" in files:
+            relpath = os.path.relpath(root, basePath)
+            if any(skip in relpath for skip in skipNames):
+                continue
+            layerPath = os.path.abspath(os.path.join(root, "..")) if os.path.basename(root) == "conf" else os.path.abspath(root)
+            layerList.append((layerPath, getLayerPriority(os.path.join(root, "layer.conf"))))
+
+    return sorted(set(layerList), key=itemgetter(1), reverse=True)
+
 
 def generatePathString(pathList):
-    retString = ""
-    for path, _ in pathList:
-        retString += path + " "
-    return retString.strip()
+    return " ".join(path for path, _ in pathList)
 
-print("# This configuration file is dynamically generated every time")
-print("# set_bb_env.sh is sourced to set up a workspace.  DO NOT EDIT.")
-print("#--------------------------------------------------------------")
-print("LCONF_VERSION = \"6\"")
-print()
-print("export WORKSPACE := \"${@os.path.abspath(os.path.join(os.path.dirname(d.getVar('FILE', d)),'../../..'))}\"")
-print()
-print("BBPATH = \"${TOPDIR}\"")
-print("BBFILES ?= \"\"")
-print("BBLAYERS = \"" + generatePathString(getLayerPaths(sys.argv[1].strip('\"'), sys.argv[2].strip('\"'))) + "\"")
+if __name__ == "__main__":
+    targetPath = sys.argv[1].strip("\"")
+    print("# This configuration file is dynamically generated every time")
+    print("# set_bb_env.sh is sourced to set up a workspace.  DO NOT EDIT.")
+    print("#--------------------------------------------------------------")
+    print("LCONF_VERSION = \"6\"")
+    print()
+    print("export WORKSPACE := \"${@os.path.abspath(os.path.join(os.path.dirname(d.getVar('FILE', d)),'../../..'))}\"")
+    print()
+    print("BBPATH = \"${TOPDIR}\"")
+    print("BBFILES ?= \"\"")
+    print("BBLAYERS = \"" + generatePathString(findLayersRecursively(targetPath)) + "\"")
+

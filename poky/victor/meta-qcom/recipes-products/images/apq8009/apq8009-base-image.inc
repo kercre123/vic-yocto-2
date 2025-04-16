@@ -86,7 +86,7 @@ IMAGE_EXT4_SELINUX_OPTIONS = "${@bb.utils.contains('DISTRO_FEATURES','selinux','
 
 DEPENDS += "cryptsetup-native"
 
-CONFIG_FILE = "${COREBASE}/meta-qcom/files/config_files/anki_user_config"
+CONFIG_FILE = "${COREBASE}/../victor/meta-qcom/files/config_files/anki_user_config"
 VICTOR_CONFIG_FILE = "${DEPLOY_DIR_IMAGE}/victor_canned_fs_config"
 
 IMAGE_ROOTFS_EXTRA_SPACE = "307200"

@@ -1,7 +1,7 @@
 DESCRIPTION = "bspatch tool from Android needed for delta updates"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/\
-BSD;md5=3775480a712fc46a69647678acb234cb"
+BSD;md5=550794465ba0ec5312d6919e203a55f9"
 
 DEPENDS = "bzip2"
 

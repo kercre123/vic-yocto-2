@@ -4,9 +4,9 @@ DESCRIPTION = "Build crypthelper-mediameta, a helper library\
                to provide mapping between encryption meta and\
                encryptable block devices"
 
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/\
-${LICENSE};md5=3775480a712fc46a69647678acb234cb"
+${LICENSE};md5=550794465ba0ec5312d6919e203a55f9"
 
 PR = "r0"
 

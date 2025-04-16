@@ -99,7 +99,7 @@ do_recovery_ubi() {
     echo "recovery image rootfs: ${RECOVERY_IMAGE_UBI_ROOTFS}"
 
     # copy radio directory content into RADIO directory
-    cp -r ${WORKSPACE}/poky/meta-qcom/recipes-bsp/base-files-recovery/${MACHINE}/radio/. ${OTA_TARGET_IMAGE_ROOTFS_UBI}/RADIO/.
+    cp -r ${WORKSPACE}/poky/victor/meta-qcom/recipes-bsp/base-files-recovery/${MACHINE}/radio/. ${OTA_TARGET_IMAGE_ROOTFS_UBI}/RADIO/.
 
     # devcfg image name for NAD is changed
     if ${@bb.utils.contains('DISTRO_FEATURES', 'nad-prod', 'true', 'false', d)}; then

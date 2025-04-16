@@ -1,6 +1,6 @@
 DESCRIPTION = "A sophisticated network protocol analyzer"
 HOMEPAGE = "http://www.tcpdump.org/"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1d4b0366557951c84a94fabe3529f867"
 SECTION = "console/network"
 PRIORITY = "optional"

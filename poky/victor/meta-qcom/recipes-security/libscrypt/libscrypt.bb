@@ -1,8 +1,8 @@
 inherit autotools pkgconfig
 
 DESCRIPTION = "Build scrypt library"
-LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5=3775480a712fc46a69647678acb234cb"
+LICENSE = "BSD-3-Clause"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5=550794465ba0ec5312d6919e203a55f9"
 PR = "r0"
 
 SRC_URI = "${CLO_LA_GIT}/platform/external/scrypt;protocol=https;nobranch=1;rev=72691396f9fa84fd39cb72d031750e580e648aa3;destsuffix=scrypt"
