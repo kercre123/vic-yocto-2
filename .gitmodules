@@ -5,8 +5,8 @@
 [submodule "poky/poky"]
 	path = poky/poky
 	url = https://github.com/yoctoproject/poky
-	branch = scarthgap
+	branch = walnascar
 [submodule "poky/meta-openembedded"]
 	path = poky/meta-openembedded
 	url = https://github.com/openembedded/meta-openembedded
-	branch = scarthgap
+	branch = walnascar
