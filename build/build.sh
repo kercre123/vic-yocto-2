@@ -113,12 +113,12 @@ if [[ $DO_SIGN == 1 ]]; then
     export DO_SIGN=$DO_SIGN
 fi
 
-docker build --build-arg DIR_PATH="${DIRPATH}" --build-arg USER_NAME=$(whoami) --build-arg UID=$(id -u $USER) --build-arg GID=$(id -g $USER) -t vic-yocto-builder-2 build/
+docker build --build-arg DIR_PATH="${DIRPATH}" --build-arg USER_NAME=$USER --build-arg UID=$(id -u $USER) --build-arg GID=$(id -g $USER) -t vic-yocto-builder-2 build/
 
 docker run -it \
-    -v $(pwd)/anki-deps:${HOME}/.anki \
+    -v $(pwd)/anki-deps:/home/$USER/.anki \
     -v $(pwd):$(pwd) \
-    -v $(pwd)/build/cache:${HOME}/.ccache \
+    -v $(pwd)/build/cache:/home/$USER/.ccache \
     vic-yocto-builder-2 bash -c "cd $(pwd)/poky && source build/conf/set_bb_env.sh && export ANKI_BUILD_VERSION=$BUILD_INCREMENT && ${YOCTO_BUILD_COMMAND}"
 
 cd ota
