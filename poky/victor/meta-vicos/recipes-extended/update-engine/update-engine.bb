@@ -18,23 +18,25 @@ SRC_URI = " \
       "
 
 do_compile () {
-  ${CXX} ${WORKDIR}/gpt-utils.cpp ${WORKDIR}/bootctl.cpp ${WORKDIR}/main.cpp \
+  ${CXX} ${S}/gpt-utils.cpp ${S}/bootctl.cpp ${S}/main.cpp \
     ${CXXFLAGS} ${LDFLAGS} \
     -I${STAGING_INCDIR} \
-    -L${STAGING_LIBDIR} -lstdc++ -lz -llog -lbsd -o ${WORKDIR}/bootctl
+    -L${STAGING_LIBDIR} -lstdc++ -lz -llog -lbsd -o ${S}/bootctl
 }
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 do_install() {
   install -d ${D}/usr/bin
-  install -m 0700 ${WORKDIR}/bootctl ${D}/usr/bin/bootctl-anki
+  install -m 0700 ${S}/bootctl ${D}/usr/bin/bootctl-anki
 
-  install -m 0755 ${WORKDIR}/sysswitch ${D}/usr/bin/sysswitch
+  install -m 0755 ${S}/sysswitch ${D}/usr/bin/sysswitch
 
   install -d ${D}${sysconfdir}/initscripts
-  install -m 0755 ${WORKDIR}/boot-successful.sh ${D}${sysconfdir}/initscripts/boot-successful
+  install -m 0755 ${S}/boot-successful.sh ${D}${sysconfdir}/initscripts/boot-successful
   install -d ${D}${sysconfdir}/systemd/system/
-  install -m 0644 ${WORKDIR}/boot-successful.service \
+  install -m 0644 ${S}/boot-successful.service \
     -D ${D}${sysconfdir}/systemd/system/boot-successful.service
   install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
   ln -sf /etc/systemd/system/boot-successful.service \

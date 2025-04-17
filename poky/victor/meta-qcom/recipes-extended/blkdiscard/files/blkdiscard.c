@@ -32,6 +32,7 @@
 #include <limits.h>
 #include <getopt.h>
 #include <time.h>
+#include <err.h>
 
 #include <sys/ioctl.h>
 #include <sys/stat.h>

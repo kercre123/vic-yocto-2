@@ -30,6 +30,7 @@
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "osi/include/compat.h"
 #include "osi/include/osi.h"

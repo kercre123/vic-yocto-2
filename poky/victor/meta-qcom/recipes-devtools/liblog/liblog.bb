@@ -13,6 +13,7 @@ SRC_URI   = "file://liblog"
 SRC_URI  += "file://50-log.rules"
 
 S = "${WORKDIR}/liblog"
+#UNPACKDIR = "${S}"
 
 BBCLASSEXTEND = "native"
 
@@ -22,7 +23,7 @@ EXTRA_OECONF:append_class-target = " --with-logd-logging"
 
 do_install:append() {
     if [ "${CLASSOVERRIDE}" = "class-target" ]; then
-       install -m 0644 -D ../50-log.rules ${D}${sysconfdir}/udev/rules.d/50-log.rules
+       install -m 0644 -D ${UNPACKDIR}/50-log.rules ${D}${sysconfdir}/udev/rules.d/50-log.rules
     fi
 }
 

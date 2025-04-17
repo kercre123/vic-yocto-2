@@ -33,6 +33,7 @@ EXTRA_OECONF:append_msm = "${@bb.utils.contains('VARIANT','user',' --disable-adb
 CPPFLAGS += "-I${STAGING_INCDIR}/ext4_utils"
 CPPFLAGS += "-I${STAGING_INCDIR}/libselinux"
 CPPFLAGS += "-I${STAGING_INCDIR}/libunwind"
+CFLAGS:append = " -D_GNU_SOURCE"
 
 CPPFLAGS:append_apq8053 = " -DTARGET_IS_64_BIT"
 CPPFLAGS:append_apq8017 = " -DTARGET_IS_64_BIT"

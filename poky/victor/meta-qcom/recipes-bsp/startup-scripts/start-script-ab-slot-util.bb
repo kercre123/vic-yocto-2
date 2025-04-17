@@ -6,10 +6,11 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5
 
 SRC_URI +="file://getslotsuffix.sh"
 
-S = "${WORKDIR}/"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 PR = "r0"
 
 do_install() {
-    install -m 0754 ${WORKDIR}/getslotsuffix.sh -D ${D}${bindir}/getslotsuffix
+    install -m 0754 ${S}/getslotsuffix.sh -D ${D}${bindir}/getslotsuffix
 }

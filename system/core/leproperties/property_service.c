@@ -36,6 +36,8 @@
 #include <grp.h>
 #include <fcntl.h>
 #include <sys/un.h>
+#include "ll.h"
+#include <sys/stat.h>
 #include <cutils/sockets.h>
 #include "property_service.h"
 
@@ -166,7 +168,7 @@ bool valid_trigger(const char* name)
     return false;
 }
 
-void prop_trigger(char* name, char* val)
+int prop_trigger(char* name, char* val)
 {
     char *argv[] = { NULL, NULL, NULL, NULL };
 

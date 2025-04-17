@@ -30,6 +30,7 @@
 #include "bta_ag_int.h"
 #include "bt_common.h"
 #include <string.h>
+#include <stdlib.h>
 
 /*****************************************************************************
 **  Constants

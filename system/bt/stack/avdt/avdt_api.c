@@ -24,6 +24,7 @@
  ******************************************************************************/
 
 #include <string.h>
+#include <stdlib.h>
 #include "bt_types.h"
 #include "bt_target.h"
 #include "avdt_api.h"

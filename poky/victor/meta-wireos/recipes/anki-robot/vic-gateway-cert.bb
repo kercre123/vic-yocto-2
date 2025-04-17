@@ -7,16 +7,18 @@ Anki-Inc.-Proprietary;md5=4b03b8ffef1b70b13d869dbce43e8f09"
 SRC_URI += "file://vic-gateway-cert.service"
 SRC_URI += "file://vic-gateway-cert"
 SRC_URI += "file://vic-gateway-cert.conf.in"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 inherit systemd
 
 do_install() {
   install -d ${D}/usr/sbin
-  install -m 0755 ${WORKDIR}/vic-gateway-cert ${D}/usr/sbin/vic-gateway-cert
+  install -m 0755 ${S}/vic-gateway-cert ${D}/usr/sbin/vic-gateway-cert
   install -d ${D}${sysconfdir}/systemd/system/
-  install -m 0644 ${WORKDIR}/vic-gateway-cert.service \
+  install -m 0644 ${S}/vic-gateway-cert.service \
     -D ${D}${sysconfdir}/systemd/system/vic-gateway-cert.service 
-  install -m 0644 ${WORKDIR}/vic-gateway-cert.conf.in \
+  install -m 0644 ${S}/vic-gateway-cert.conf.in \
     ${D}/etc/vic-gateway-cert.conf.in
 }
 

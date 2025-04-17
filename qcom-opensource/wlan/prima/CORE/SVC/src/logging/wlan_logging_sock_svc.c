@@ -1049,10 +1049,10 @@ static int send_filled_buffers_to_user(void)
 				&gwlan_logging.free_list);
 			spin_unlock_irqrestore(&gwlan_logging.spin_lock,
 							flags);
-			pr_err("%s: drop_count = %u\n", __func__,
-				++gwlan_logging.drop_count);
-			pr_err("%s: nlmsg_put() failed for msg size[%d]\n",
-				__func__, tot_msg_len);
+			//pr_err("%s: drop_count = %u\n", __func__,
+			//	++gwlan_logging.drop_count);
+			//pr_err("%s: nlmsg_put() failed for msg size[%d]\n",
+			//	__func__, tot_msg_len);
 			dev_kfree_skb(skb);
 			skb = NULL;
 			ret = -EINVAL;

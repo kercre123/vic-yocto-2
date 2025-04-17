@@ -13,7 +13,7 @@ inherit update-rc.d
 INITSCRIPT_NAME = "backlight"
 
 do_install() {
-        install -m 0755 ${WORKDIR}/backlight -D ${D}${sysconfdir}/init.d/backlight
+        install -m 0755 ${UNPACKDIR}/backlight -D ${D}${sysconfdir}/init.d/backlight
 }
 
 pkg_postinst-${PN} () {

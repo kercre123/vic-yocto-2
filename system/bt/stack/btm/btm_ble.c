@@ -30,6 +30,7 @@
 #if BLE_INCLUDED == TRUE
 
 #include <string.h>
+#include <stdlib.h>
 
 #include "bt_types.h"
 #include "bt_utils.h"

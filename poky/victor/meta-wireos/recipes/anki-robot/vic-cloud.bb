@@ -7,6 +7,8 @@ SERVICE_FILE = "vic-cloud.service"
 # GOINSTALLER="go1.15.6.linux-amd64.tar.gz"
 
 SRC_URI = "file://${SERVICE_FILE}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 inherit systemd
 
@@ -15,15 +17,12 @@ DEPENDS = "pkgconfig-native"
 do_install:append () {
    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
        install -d ${D}${systemd_unitdir}/system/
-       install -m 0644 ${WORKDIR}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
+       install -m 0644 ${S}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
    fi
 }
 
 FILES:${PN} += "${systemd_unitdir}/system/"
 SYSTEMD_SERVICE:${PN} = "${SERVICE_FILE}"
-
-GOPATH = "${WORKDIR}/go_path"
-GOEXEPATH = "${WORKDIR}/go_exe"
 
 inherit externalsrc
 

@@ -32,6 +32,7 @@
 #endif
 
 #include <cutils/ashmem.h>
+#include <stdlib.h>
 
 #define ASHMEM_DEVICE	"/dev/ashmem"
 

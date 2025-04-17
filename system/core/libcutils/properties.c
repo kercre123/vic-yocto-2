@@ -17,7 +17,10 @@
 #include <cutils/properties.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "property_ops.h"
+
+static void dump_persist(void);
 
 int property_get(const char *key, char *value, const char *default_value) {
     int rc = 0;

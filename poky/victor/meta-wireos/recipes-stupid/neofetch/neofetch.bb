@@ -10,7 +10,9 @@ SRC_URI = " \
       file://vector-ascii \
       "
 
-S = "${WORKDIR}"
+#S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 do_install() {
   install -d ${D}/usr/bin

@@ -11,6 +11,7 @@ TARGET_CFLAGS += "-Os -Wall -Wno-unused-result -Wno-strict-aliasing -fPIC"
 TARGET_CFLAGS += "${@' -DOSKR' if d.getVar('OSKR') == '1' else ''}"
 
 S = "${WORKDIR}/anki/rampost"
+#UNPACKDIR = "${S}"
 
 do_compile() {
     oe_runmake CC="${CC}" CFLAGS="${TARGET_CFLAGS}" LDFLAGS="${LDFLAGS}"

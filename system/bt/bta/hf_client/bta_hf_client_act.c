@@ -34,6 +34,7 @@
 #include "bt_utils.h"
 #include "osi/include/compat.h"
 #include <string.h>
+#include <stdlib.h>
 
 /*****************************************************************************
 **  Constants

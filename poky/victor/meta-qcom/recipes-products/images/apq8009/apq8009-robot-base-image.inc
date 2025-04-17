@@ -5,7 +5,7 @@ require apq8009-base-image.inc
 # These two lines below is a workaround to remove init-mss,
 # since packagegroup-ss-mgr just include reboot-daemon and init-mss
 IMAGE_INSTALL:remove = "packagegroup-ss-mgr"
-IMAGE_INSTALL += "reboot-daemon"
+#IMAGE_INSTALL += "reboot-daemon"
 IMAGE_INSTALL += "e2fsprogs"
 IMAGE_INSTALL += "start-scripts-userfs-reset"
 IMAGE_INSTALL += "chrony"

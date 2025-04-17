@@ -30,6 +30,7 @@
 
 #include <hardware/bluetooth.h>
 #include <hardware/bt_sock.h>
+#include <stdlib.h>
 
 #include "bt_target.h"
 #include "bta_api.h"

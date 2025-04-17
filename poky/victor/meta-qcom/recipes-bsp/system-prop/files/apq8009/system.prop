@@ -12,7 +12,7 @@ persist.vendor.audio.fluence.voicecall=false
 persist.vendor.audio.fluence.voicerec=false
 persist.vendor.audio.fluence.speaker=false
 persist.vendor.audio.fluence.audiorec=false
-vendor.audio.tunnel.encode = false
+vendor.audio.tunnel.encode=false
 #Buffer size in kbytes for compress offload playback
 vendor.audio.offload.buffer.size.kb=64
 #Enable offload audio video playback by default
@@ -37,3 +37,7 @@ ro.qc.sdk.fwk.mic_support=6
 
 #property to enable audio HAL server
 persist.vendor.audio.qas.enabled=true
+
+#makes mm-qcamera-daemon not log a bunch
+persist.camera.hal.debug.mask=7
+persist.camera.mct.debug.mask=1

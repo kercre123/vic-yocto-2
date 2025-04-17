@@ -33,6 +33,7 @@
 
 #include <hardware/bluetooth.h>
 #include <hardware/bt_rc.h>
+#include <stdlib.h>
 
 #include "avrc_defs.h"
 #include "bta_api.h"

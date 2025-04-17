@@ -21,6 +21,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "bta_api.h"
 #include "osi/include/compat.h"

@@ -241,3 +241,5 @@ void __dump_nodes()
     }
 }
 
+#include <stdlib.h>
+#include <string.h>

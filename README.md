@@ -1,6 +1,8 @@
 # vic-yocto-2
 
-Vector's original OS is built with an old version of Yocto/OpenEmbedded. This project aims to upgrade that.
+Vector's original OS is built with an old version of Yocto/OpenEmbedded. I upgraded it to `walnascar`, which is the latest release of Yocto as of 2025.
+
+It may or may not build on your machine. Yocto is weird. Who knows.
 
 ## Vector's Original OS Info
 
@@ -12,10 +14,9 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 ## Status
 
 -	Kernel: 3.18.68-scarthgap
-	-	Tiny little modifications required for new sysfs
--	glibc: 2.39
+-	glibc: 2.41
 -	arch: armel
--	yocto: scarthgap (5.0)
+-	yocto: walnascar (5.2)
 
 ## Build
 

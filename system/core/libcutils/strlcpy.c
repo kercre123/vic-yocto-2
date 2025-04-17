@@ -21,6 +21,7 @@
 #include <string.h>
 
 #include <cutils/memory.h>
+#include <stdlib.h>
 
 /* Implementation of strlcpy() for platforms that don't already have it. */
 

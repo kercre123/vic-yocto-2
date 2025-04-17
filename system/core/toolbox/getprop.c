@@ -15,7 +15,7 @@
 int main(int argc, char *argv[])
 {
     if (argc == 1) {
-        dump_properties();
+    //    dump_properties();
     } else {
         char value[PROPERTY_VALUE_MAX];
         char *default_value;

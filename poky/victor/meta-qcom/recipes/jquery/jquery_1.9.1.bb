@@ -19,9 +19,9 @@ do_install() {
 
 SRC_URI = "http://code.jquery.com/jquery-1.9.1.min.js"
 
-S = "${WORKDIR}"
-#S = "${WORKDIR}/sources"
-#UNPACKDIR = "${S}"
+#S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 FILES:${PN} += "/WEBSERVER/www/js/jquery.js"
 

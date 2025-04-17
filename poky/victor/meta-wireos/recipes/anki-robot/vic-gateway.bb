@@ -8,18 +8,20 @@ AVAHI_SERVICE_FILE = "vector-mdns.service"
 
 SRC_URI = "file://${SERVICE_FILE}"
 SRC_URI += "file://${AVAHI_SERVICE_FILE}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 inherit systemd
 
 do_install:append () {
    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
        install -d ${D}${systemd_unitdir}/system/
-       install -m 0644 ${WORKDIR}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
+       install -m 0644 ${S}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
    fi
 
    if ${@bb.utils.contains('DISTRO_FEATURES', 'avahi', 'true', 'false', d)}; then
        install -d ${D}${sysconfdir}/avahi/services/
-       install -m 644 ${WORKDIR}/${AVAHI_SERVICE_FILE} ${D}${sysconfdir}/avahi/services/${AVAHI_SERVICE_FILE}
+       install -m 644 ${S}/${AVAHI_SERVICE_FILE} ${D}${sysconfdir}/avahi/services/${AVAHI_SERVICE_FILE}
    fi
 }
 

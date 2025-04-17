@@ -6,6 +6,9 @@ LICENSE = "BSD-3-Clause"
 
 SRC_URI ="file://usbnet"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 PR = "r7"
 
 inherit update-rc.d
@@ -15,7 +18,7 @@ INITSCRIPT_PARAMS = "start 43 S 2 3 4 5 S . stop 80 0 1 6 ."
 
 
 do_install() {
-        install -m 0755 ${WORKDIR}/usbnet -D ${D}${sysconfdir}/init.d/usbnet
+        install -m 0755 ${S}/usbnet -D ${D}${sysconfdir}/init.d/usbnet
 }
 
 pkg_postinst-${PN} () {

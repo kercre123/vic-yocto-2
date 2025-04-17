@@ -41,6 +41,7 @@
 #if (BT_USE_TRACES == TRUE && BT_TRACE_VERBOSE == FALSE)
 /* needed for sprintf() */
 #include <stdio.h>
+#include <stdlib.h>
 #endif
 
 #if BLE_INCLUDED == TRUE

@@ -6,13 +6,13 @@ DEPENDS = "virtual/kernel"
 RDEPENDS:${PN} = "udev udev-extraconf"
 SRC_URI = "file://init-boot.sh file://syscon.dfu"
 
-S = "${WORKDIR}"
-#S = "${WORKDIR}/sources"
-#UNPACKDIR = "${S}"
+#S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 do_install() {
-        install -m 0755 ${WORKDIR}/init-boot.sh ${D}/init
-        install -m 0644 ${WORKDIR}/syscon.dfu ${D}
+        install -m 0755 ${S}/init-boot.sh ${D}/init
+        install -m 0644 ${S}/syscon.dfu ${D}
         install -d ${D}/dev
         mknod -m 622 ${D}/dev/console c 5 1
 }

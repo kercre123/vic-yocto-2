@@ -37,6 +37,7 @@
 #include <grp.h>
 #include <sys/un.h>
 #include <cutils/sockets.h>
+#include <stdlib.h>
 #include "property_ops.h"
 
 static int open_prop_socket()
@@ -147,13 +148,13 @@ static int send_getprop_msg(const char *msg, char *resp)
 
 bool set_property_value(const char* prop_name, unsigned char *prop_val)
 {
-    const char msg[MAX_ALLOWED_LINE_LEN+1]; // +1 for msg type.
-    memset(msg, 0 , sizeof msg);
+    char msg[MAX_ALLOWED_LINE_LEN+1]; // +1 for msg type.
+    memset(msg, 0 , sizeof(msg));
 
     snprintf(msg, MAX_ALLOWED_LINE_LEN+1, "%c%s=%s",
              PROP_MSG_SETPROP, prop_name, prop_val);
 
-    const int err = send_setprop_msg(&msg);
+    const int err = send_setprop_msg(msg);
     if (err < 0) {
        ALOGE("Failed to send message to Set %s", prop_name);
        return false;
@@ -164,16 +165,16 @@ bool set_property_value(const char* prop_name, unsigned char *prop_val)
 
 bool get_property_value(const char* prop_name, unsigned char *prop_val)
 {
-    const char msg[MAX_ALLOWED_LINE_LEN+1]; // +1 for msg type.
+    char msg[MAX_ALLOWED_LINE_LEN+1]; // +1 for msg type.
     char resp[MAX_ALLOWED_LINE_LEN];
 
     memset(msg,  0 , sizeof(msg));
     memset(resp, 0 , sizeof(resp));
 
-    snprintf(msg, sizeof msg, "%c%s=",
+    snprintf(msg, sizeof(msg), "%c%s=",
             PROP_MSG_GETPROP, prop_name);
 
-    const int err = send_getprop_msg(&msg, &resp);
+    const int err = send_getprop_msg(msg, resp);
     if (err < 0) {
        LOG("Failed to send message to Get %s", prop_name);
        return false;

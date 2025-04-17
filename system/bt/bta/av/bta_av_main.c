@@ -35,6 +35,7 @@
 #include "bt_target.h"
 #include "osi/include/log.h"
 #include <cutils/properties.h>
+#include <stdlib.h>
 
 #if defined(BTA_AV_INCLUDED) && (BTA_AV_INCLUDED == TRUE)
 #include "bta_av_co.h"

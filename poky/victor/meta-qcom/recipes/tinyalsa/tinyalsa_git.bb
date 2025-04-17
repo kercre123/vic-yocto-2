@@ -24,9 +24,9 @@ SRC_URI = "git://github.com/tinyalsa/tinyalsa.git;protocol=https;branch=master \
 SRC_URI:append_sdxprairie = "file://0001-tinymix_multi.patch \
                              file://0001-tinyplay-lower-threshold-values.patch"
 
-S = "${WORKDIR}"
-#S = "${WORKDIR}/sources"
-#UNPACKDIR = "${S}"
+#S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 EXTRA_OEMAKE = "DEFAULT_INCLUDES=-I${WORKDIR}/git/include/"
 

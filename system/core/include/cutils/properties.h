@@ -62,6 +62,8 @@ int property_get(const char *key, char *value, const char *default_value);
 **/
 int8_t property_get_bool(const char *key, int8_t default_value);
 
+void dump_properties(void);
+
 /* property_get_int64: returns the value of key truncated and coerced into a
 ** int64_t. If the property is not set, then the default value is used.
 **

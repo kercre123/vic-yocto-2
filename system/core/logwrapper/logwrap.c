@@ -20,7 +20,6 @@
 #include <poll.h>
 #include <sys/wait.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -32,6 +31,13 @@
 #include "private/android_filesystem_config.h"
 #include "cutils/log.h"
 #include <cutils/klog.h>
+
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1       /* make sure the right feature set is on */
+#endif
+#include <stdlib.h>         /* grantpt()/unlockpt()/ptsname_r() */
+#include <pty.h>            /* openpty()/forkpty() – not strictly required */
+
 
 /*
  ** TEMP_FAILURE_RETRY is defined by some, but not all, versions of

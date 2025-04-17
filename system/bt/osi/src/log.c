@@ -22,6 +22,7 @@ static int sMinLogLevel = kLogLevelVerbose;
 
 #ifdef USE_ANDROID_LOGGING
 #include <utils/Log.h>
+#include <stdlib.h>
 static bool sUsingAndroidLogging = true;
 #else
 static bool sUsingAndroidLogging = false;

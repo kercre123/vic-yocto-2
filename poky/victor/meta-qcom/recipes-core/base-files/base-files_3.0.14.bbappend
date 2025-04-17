@@ -21,16 +21,16 @@ dirs755:append_apq8009 = "/firmware /persist /factory"
 # Explicitly remove sepolicy entries from fstab when selinux is not present.
 fix_sepolicies () {
     #For /run
-    sed -i "s#,rootcontext=system_u:object_r:var_run_t:s0##g" ${WORKDIR}/fstab
+    sed -i "s#,rootcontext=system_u:object_r:var_run_t:s0##g" ${WORKDIR}/sources/fstab
     # For /var/volatile
-    sed -i "s#,rootcontext=system_u:object_r:var_t:s0##g" ${WORKDIR}/fstab
+    sed -i "s#,rootcontext=system_u:object_r:var_t:s0##g" ${WORKDIR}/sources/fstab
 }
 do_install[prefuncs] += " ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', '', 'fix_sepolicies', d)}"
 
 # Don't install fstab for systemd targets
 do_install:append() {
     # kercre123 - install custom profile
-    install -m 0755 ${WORKDIR}/profile ${D}${sysconfdir}/profile
+    install -m 0755 ${WORKDIR}/sources/profile ${D}${sysconfdir}/profile
 
     # kercre123 - we use connman
     #install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants

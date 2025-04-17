@@ -32,6 +32,7 @@
 #include "bta_pan_api.h"
 #include "bta_pan_int.h"
 #include <string.h>
+#include <stdlib.h>
 #include "bt_utils.h"
 
 #if defined(BTA_PAN_INCLUDED) && (BTA_PAN_INCLUDED == TRUE)

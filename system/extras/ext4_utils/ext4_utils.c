@@ -43,6 +43,7 @@
 #include <linux/fs.h>
 #elif defined(__APPLE__) && defined(__MACH__)
 #include <sys/disk.h>
+#include <stdlib.h>
 #endif
 
 int force = 0;

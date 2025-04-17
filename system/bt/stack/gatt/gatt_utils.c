@@ -27,6 +27,7 @@
 
 #if BLE_INCLUDED == TRUE
     #include <string.h>
+#include <stdlib.h>
     #include "stdio.h"
     #include "bt_common.h"
 

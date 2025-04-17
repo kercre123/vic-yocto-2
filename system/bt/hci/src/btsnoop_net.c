@@ -33,6 +33,7 @@
 #include <unistd.h>
 #ifndef ANDROID
 #include <sys/time.h>
+#include <stdlib.h>
 #endif
 
 #include "osi/include/log.h"

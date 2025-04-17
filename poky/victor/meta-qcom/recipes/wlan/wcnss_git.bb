@@ -12,7 +12,7 @@ SRC_URI = "file://qcom-opensource/wlan/prima/firmware_bin \
 SRC_URI += "file://wcnss_wlan.service"
 
 S = "${WORKDIR}/qcom-opensource/wlan/firmware_bin"
-
+UNPACKDIR = "${S}"
 inherit systemd
 inherit update-rc.d
 
@@ -20,9 +20,9 @@ do_install() {
 
 	if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
                 install -d ${D}/etc/initscripts/
-                install "${WORKDIR}"/set_wcnss_mode ${D}/etc/initscripts/set_wcnss_mode
+                install "${S}"/set_wcnss_mode ${D}/etc/initscripts/set_wcnss_mode
 		install -d ${D}/etc/systemd/system/
-		install -m 0644 ${WORKDIR}/wcnss_wlan.service -D ${D}/etc/systemd/system/wcnss_wlan.service
+		install -m 0644 ${S}/wcnss_wlan.service -D ${D}/etc/systemd/system/wcnss_wlan.service
 	        install -d ${D}/etc/systemd/system/multi-user.target.wants/
 	        install -d ${D}/etc/systemd/system/ffbm.target.wants/
 		# enable the service for multi-user.target
@@ -34,7 +34,7 @@ do_install() {
         else
                install -d ${D}/etc
                install -d ${D}/etc/init.d
-               install "${WORKDIR}"/set_wcnss_mode ${D}/etc/init.d
+               install "${S}"/set_wcnss_mode ${D}/etc/init.d
 	fi
 
     mkdir -p ${D}/lib/firmware/wlan/prima

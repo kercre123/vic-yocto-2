@@ -30,6 +30,7 @@
 #include "btm_api.h"
 #include "btm_int.h"
 #include <string.h>
+#include <stdlib.h>
 #include "utl.h"
 
 /*****************************************************************************

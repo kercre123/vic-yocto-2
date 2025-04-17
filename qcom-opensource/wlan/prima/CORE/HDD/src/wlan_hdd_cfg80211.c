@@ -19592,8 +19592,8 @@ static eHalStatus wlan_hdd_is_pno_allowed(hdd_adapter_t *pAdapter)
 
    if (WLAN_HDD_INFRA_STATION != pAdapter->device_mode)
    {
-       VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_ERROR,
-            "%s: PNO is allowed only in STA interface", __func__);
+       //VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_ERROR,
+       //     "%s: PNO is allowed only in STA interface", __func__);
        return eHAL_STATUS_FAILURE;
    }
 

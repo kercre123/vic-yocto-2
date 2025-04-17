@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "osi/include/osi.h"
 #include "bta_hf_client_api.h"

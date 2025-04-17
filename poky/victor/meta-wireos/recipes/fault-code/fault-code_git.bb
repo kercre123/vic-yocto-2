@@ -9,6 +9,8 @@ FILESPATH =+ "${WORKSPACE}:"
 SRC_URI = "file://anki/fault-code/ file://fault-code.service file://fault-code.socket"
 
 S = "${WORKDIR}/anki/fault-code"
+
+UNPACKDIR = "${WORKDIR}/sources"
 SYSTEM_DIR = "${D}${sysconfdir}/systemd/system"
 
 do_install() {
@@ -18,8 +20,8 @@ do_install() {
 
   if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
     install -d  ${D}${systemd_unitdir}/system/
-    install -m 0644 ${WORKDIR}/fault-code.service -D ${D}${systemd_unitdir}/system/fault-code.service
-    install -m 0644 ${WORKDIR}/fault-code.socket -D ${D}${systemd_unitdir}/system/fault-code.socket
+    install -m 0644 ${UNPACKDIR}/fault-code.service -D ${D}${systemd_unitdir}/system/fault-code.service
+    install -m 0644 ${UNPACKDIR}/fault-code.socket -D ${D}${systemd_unitdir}/system/fault-code.socket
 
     install -d ${SYSTEM_DIR}/
     install -d ${SYSTEM_DIR}/sockets.target.wants/

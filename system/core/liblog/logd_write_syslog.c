@@ -29,6 +29,8 @@
 
 #include <log/log.h>
 #include <syslog.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define LOG_BUF_SIZE 1024
 
@@ -97,7 +99,8 @@ void __android_log_assert(const char *cond, const char *tag,
         if (cond)
             snprintf(buf, LOG_BUF_SIZE, "Assertion failed: %s", cond);
         else
-            strlcpy(buf, LOG_BUF_SIZE, "Unspecified assertion failed");
+	    strlcpy(buf, "Unspecified assertion failed", LOG_BUF_SIZE);
+            //strlcpy(buf, LOG_BUF_SIZE, "Unspecified assertion failed");
     }
 
     __android_log_write(LOG_CRIT, tag, buf);

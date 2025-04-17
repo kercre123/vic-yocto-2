@@ -50,6 +50,7 @@
  */
 #if !defined(OS_GENERIC)
 #include <cutils/properties.h>
+#include <stdlib.h>
 #endif  /* !defined(OS_GENERIC) */
 
 #define BT_CONFIG_SOURCE_TAG_NUM 1010001

@@ -4,13 +4,16 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../victor/meta-qcom/recipes-extended/blkd
 
 SRC_URI = "file://blkdiscard.c"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 do_compile () {
-  ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/blkdiscard.c -o ${WORKDIR}/blkdiscard
+  ${CC} ${CFLAGS} ${LDFLAGS} ${S}/blkdiscard.c -o ${S}/blkdiscard
 }
 
 do_install() {
   install -d ${D}/usr/bin
-  install -m 0755 ${WORKDIR}/blkdiscard ${D}/usr/bin/
+  install -m 0755 ${S}/blkdiscard ${D}/usr/bin/
 }
 
 FILES:${PN} += "/usr/bin/blkdiscard"

@@ -8,9 +8,12 @@ FILESPATH =+ "${WORKSPACE}:"
 SRC_URI = "file://ANKI_VERSION"
 SRC_URI += "file://VICTOR_COMPAT_VERSION"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 do_install:append () {
     install -d ${D}/etc
-    install -m 0444 ${WORKDIR}/ANKI_VERSION ${D}/etc/os-version-base
+    install -m 0444 ${S}/ANKI_VERSION ${D}/etc/os-version-base
 
     # ANKI_BUILD_VERSION will be set by TeamCity for CI builds, default to 0 for developer builds
     : ${ANKI_BUILD_VERSION:=0}
@@ -50,14 +53,14 @@ do_install:append () {
         ANKI_BUILD_TYPE=""
     fi
 
-    BASE_VERSION=$(cat ${WORKDIR}/ANKI_VERSION)
+    BASE_VERSION=$(cat ${S}/ANKI_VERSION)
     echo "${BASE_VERSION}.${ANKI_BUILD_VERSION}${ANKI_BUILD_TYPE}" > ${D}/etc/os-version
     chmod 0444 ${D}/etc/os-version
 
     # This victor compatibility version can be used to prevent victor.git developers from
     # deploying code onto a newer OS that they are no longer compatible with.  As well, it
     # will prevent them from deploying new code onto an older incompatible robot.
-    install -m 0444 ${WORKDIR}/VICTOR_COMPAT_VERSION ${D}/etc/victor-compat-version
+    install -m 0444 ${S}/VICTOR_COMPAT_VERSION ${D}/etc/victor-compat-version
 }
 
 FILES:${PN} += "etc/os-version-base"

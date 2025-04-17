@@ -24,6 +24,7 @@
  ******************************************************************************/
 
 #include <string.h>
+#include <stdlib.h>
 
 #include "bt_target.h"
 #if defined(HL_INCLUDED) && (HL_INCLUDED == TRUE)

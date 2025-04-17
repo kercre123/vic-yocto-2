@@ -11,10 +11,10 @@ do_install:append() {
 
 	# mount-data wants to know when these devices are available
 	install -d ${D}/etc/udev/rules.d
-	install -m 0644 ${WORKDIR}/ion.rules ${D}/etc/udev/rules.d/ion.rules
-	install -m 0644 ${WORKDIR}/qseecom.rules ${D}/etc/udev/rules.d/qseecom.rules
-	install -m 0644 ${WORKDIR}/gpio.rules ${D}/etc/udev/rules.d/gpio.rules
-	install -m 0644 ${WORKDIR}/smd23.rules ${D}/etc/udev/rules.d/smd23.rules
+	install -m 0644 ${UNPACKDIR}/ion.rules ${D}/etc/udev/rules.d/ion.rules
+	install -m 0644 ${UNPACKDIR}/qseecom.rules ${D}/etc/udev/rules.d/qseecom.rules
+	install -m 0644 ${UNPACKDIR}/gpio.rules ${D}/etc/udev/rules.d/gpio.rules
+	install -m 0644 ${UNPACKDIR}/smd23.rules ${D}/etc/udev/rules.d/smd23.rules
 }
 
 FILES:${PN} += "/etc/udev/rules.d"

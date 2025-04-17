@@ -5,7 +5,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5
 
 SRC_URI  = "file://userfs-reset"
 
-S = "${WORKDIR}/"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 PR = "r1"
 
@@ -16,6 +17,6 @@ FILES:${PN} += "${systemd_unitdir}/system/"
 do_install() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', bb.utils.contains('DISTRO_FEATURES', 'userfs-factory-reset', 'true', 'false', d), 'false', d)}
     then
-        install -m 0750 ${WORKDIR}/userfs-reset -D ${D}${bindir}/userfs-reset
+        install -m 0750 ${S}/userfs-reset -D ${D}${bindir}/userfs-reset
     fi
 }

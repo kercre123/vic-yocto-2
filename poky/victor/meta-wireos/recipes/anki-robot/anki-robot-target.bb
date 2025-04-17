@@ -10,6 +10,9 @@ SRC_URI += "file://anki.sudoers"
 SRC_URI += "file://multi-user-done.service"
 SRC_URI += "file://start-anki.service"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR="${S}"
+
 DEPENDS += "vic-init"
 DEPENDS += "vic-robot"
 DEPENDS += "vic-anim"
@@ -25,9 +28,9 @@ do_install:append () {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_unitdir}/system/
         install -d ${D}${systemd_unitdir}/system/multi-user.target.wants
-        install -m 0644 ${WORKDIR}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
-        install -m 0644 ${WORKDIR}/multi-user-done.service -D ${D}${systemd_unitdir}/system/multi-user-done.service
-        install -m 0644 ${WORKDIR}/start-anki.service -D ${D}${systemd_unitdir}/system/start-anki.service
+        install -m 0644 ${S}/${SERVICE_FILE} -D ${D}${systemd_unitdir}/system/${SERVICE_FILE}
+        install -m 0644 ${S}/multi-user-done.service -D ${D}${systemd_unitdir}/system/multi-user-done.service
+        install -m 0644 ${S}/start-anki.service -D ${D}${systemd_unitdir}/system/start-anki.service
         install -d ${D}${systemd_unitdir}/system/anki-robot.target.wants/
 
         # create a symlink named victor.target for cli alias
@@ -41,7 +44,7 @@ do_install:append () {
             ${D}${systemd_unitdir}/system/multi-user.target.wants/start-anki.service
    fi
    install -m 0750 -d ${D}${sysconfdir}/sudoers.d
-   install -m 0644 ${WORKDIR}/anki.sudoers -D ${D}${sysconfdir}/sudoers.d/anki
+   install -m 0644 ${S}/anki.sudoers -D ${D}${sysconfdir}/sudoers.d/anki
 }
 
 FILES:${PN} += "${sysconfdir}/sudoers.d/anki"

@@ -15,6 +15,7 @@ FILESPATH =+ "${WORKSPACE}:"
 SRC_URI = "file://qcom-opensource/wlan/prima"
 
 S = "${WORKDIR}/qcom-opensource/wlan/prima"
+#UNPACKDIR = "${S}"
 
 EXTRA_OEMAKE += "CONFIG_PRONTO_WLAN=m \
                  KERNEL_BUILD=0"
