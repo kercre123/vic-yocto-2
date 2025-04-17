@@ -13,8 +13,10 @@ OD="$(pwd)"
 
 # if hf compiler, we want to replace with armel
 if [[ ! -d old-toolchain/arm ]] || [[ -d old-toolchain/arm/arm-linux-gnueabihf ]]; then
-	echo "as root because this was originally done in a docker container, so perms are messed up"
-	sudo rm -rf old-toolchain
+	if [[ -d old-toolchain ]]; then
+		echo "as root because this was originally done in a docker container, so perms are messed up"
+		sudo rm -rf old-toolchain
+	fi
 	mkdir -p old-toolchain
 	cd old-toolchain
 	wget -q --show-progress https://github.com/kercre123/vic-yocto-2/releases/download/0.0.1/armel-4.9.3.tar.gz
@@ -25,7 +27,9 @@ fi
 cd "$OD"
 
 if [[ ! -d anki-deps/vicos-sdk/dist/4.0.0-r05/prebuilt ]]; then
-	sudo rm -rf anki-deps
+	if [[ -d anki-deps ]]; then
+		sudo rm -rf anki-deps
+	fi
 	mkdir -p anki-deps/vicos-sdk/dist/4.0.0-r05
 	cd anki-deps/vicos-sdk/dist/4.0.0-r05
 	wget -q --show-progress https://github.com/kercre123/anki-deps/releases/download/4.0.0/vicos-sdk_4.0.0-r05_x86_64-arm-oe-linux-gnueabi.tar.gz
