@@ -4,6 +4,11 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. I upgra
 
 It may or may not build on your machine. Yocto is weird. Who knows.
 
+# branch info
+
+- **do not build this**
+- this branch is for funsies
+
 ## Vector's Original OS Info
 
 -	Kernel: 3.18.66
