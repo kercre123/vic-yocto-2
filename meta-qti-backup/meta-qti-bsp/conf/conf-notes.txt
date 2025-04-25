@@ -1,1 +1,0 @@
-Bitbake is ready.
